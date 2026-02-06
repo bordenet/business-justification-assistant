@@ -23,8 +23,8 @@ describe('Storage Module', () => {
             expect(storage.db).not.toBeNull();
         });
 
-        it('should create proposals store', async () => {
-            expect(storage.db.objectStoreNames.contains('proposals')).toBe(true);
+        it('should create justifications store', async () => {
+            expect(storage.db.objectStoreNames.contains('justifications')).toBe(true);
         });
 
         it('should create settings store', async () => {
