@@ -1,5 +1,5 @@
 /**
- * Type Definitions for Hello World (TEMPLATE - CUSTOMIZE FOR YOUR DOMAIN)
+ * Type Definitions for Business Justification Assistant (TEMPLATE - CUSTOMIZE FOR YOUR DOMAIN)
  *
  * This file contains JSDoc type definitions used across the application.
  * Import types using: @type {import('./types.js').TypeName}

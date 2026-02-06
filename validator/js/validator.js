@@ -316,7 +316,7 @@ export function detectTimeline(text) {
 
 /**
  * Score problem clarity (30 pts max)
- * @param {string} text - One-pager content
+ * @param {string} text - Business justification content
  * @returns {Object} Score result with issues and strengths
  */
 export function scoreProblemClarity(text) {
@@ -367,7 +367,7 @@ export function scoreProblemClarity(text) {
 
 /**
  * Score solution quality (25 pts max)
- * @param {string} text - One-pager content
+ * @param {string} text - Business justification content
  * @returns {Object} Score result with issues and strengths
  */
 export function scoreSolutionQuality(text) {
@@ -420,7 +420,7 @@ export function scoreSolutionQuality(text) {
 
 /**
  * Score scope discipline (25 pts max)
- * @param {string} text - One-pager content
+ * @param {string} text - Business justification content
  * @returns {Object} Score result with issues and strengths
  */
 export function scoreScopeDiscipline(text) {
@@ -471,7 +471,7 @@ export function scoreScopeDiscipline(text) {
 
 /**
  * Score completeness (20 pts max)
- * @param {string} text - One-pager content
+ * @param {string} text - Business justification content
  * @returns {Object} Score result with issues and strengths
  */
 export function scoreCompleteness(text) {

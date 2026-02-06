@@ -1,5 +1,5 @@
 /**
- * Hello World Prompts Module (TEMPLATE - CUSTOMIZE FOR YOUR DOMAIN)
+ * Business Justification Prompts Module (TEMPLATE - CUSTOMIZE FOR YOUR DOMAIN)
  * @module prompts
  *
  * Manages workflow configuration and prompt generation.

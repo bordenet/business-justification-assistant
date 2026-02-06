@@ -7,8 +7,8 @@ test.describe('Form Submission Workflow', () => {
   });
 
   test('should load the application with correct title', async ({ page }) => {
-    await expect(page).toHaveTitle(/Hello World/);
-    await expect(page.locator('h1')).toContainText('Hello World');
+    await expect(page).toHaveTitle(/Business Justification/);
+    await expect(page.locator('h1')).toContainText('Business Justification');
   });
 
   test('should show Phase 1 form initially', async ({ page }) => {
