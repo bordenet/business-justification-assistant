@@ -1,0 +1,22 @@
+{
+  "minimal": {
+    "content": "# Problem\n\nWe have a problem.\n\n# Solution\n\nWe will fix it.",
+    "expectedMinScore": 5,
+    "expectedMaxScore": 30
+  },
+  "complete": {
+    "content": "# Problem\n\nOur customers struggle with onboarding, leading to 40% churn in the first month. This costs the business $2 million annually in lost revenue. Without action, we risk losing market share to competitors who offer smoother experiences.\n\n# Solution\n\nWe will implement a guided onboarding flow that reduces time-to-value by 60%. Our goal is to achieve 90% completion rate within the first week. We'll measure success through engagement metrics and retention rates.\n\n# Goals\n\n- Reduce first-month churn by 50%\n- Increase user activation by 40%\n- Achieve 90% onboarding completion rate\n\n# Scope\n\n## In Scope\n- Guided product tour\n- Progress tracking dashboard\n- Automated email reminders\n\n## Out of Scope\n- Mobile app onboarding (phase 2)\n- Third-party integrations\n- Custom enterprise flows\n\n# Success Metrics\n\n| Metric | Target | Timeline |\n|--------|--------|----------|\n| Churn rate | <20% | Q2 |\n| Activation | >80% | Q2 |\n| NPS | >50 | Q3 |\n\n# Stakeholders\n\n- **Owner**: Product Team (John Smith)\n- **Responsible**: Engineering, Design\n- **Accountable**: VP Product\n- **Consulted**: Customer Success\n- **Informed**: Sales, Marketing\n\n# Timeline\n\n## Phase 1: Discovery (Week 1-2)\n- User research\n- Competitive analysis\n\n## Phase 2: Design (Week 3-4)\n- Wireframes\n- User testing\n\n## Phase 3: Build (Week 5-8)\n- Development\n- QA testing\n\n## Phase 4: Launch (Week 9)\n- Staged rollout\n- Monitoring",
+    "expectedMinScore": 70,
+    "expectedMaxScore": 100
+  },
+  "problemOnly": {
+    "content": "# Problem\n\nCustomers are frustrated with our slow checkout process. The average checkout takes 5 minutes, compared to industry standard of 2 minutes. This results in 30% cart abandonment rate, costing us $500K monthly in lost sales.",
+    "expectedMinScore": 15,
+    "expectedMaxScore": 35
+  },
+  "noScope": {
+    "content": "# Problem\n\nWe need to improve performance.\n\n# Solution\n\nWe will optimize the system.\n\n# Goals\n\n- Make it faster\n- Improve user experience",
+    "expectedMinScore": 10,
+    "expectedMaxScore": 40
+  }
+}
