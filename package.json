@@ -1,7 +1,7 @@
 {
-  "name": "hello-world-genesis-example",
+  "name": "business-justification-assistant",
   "version": "1.0.0",
-  "description": "Minimal 2-phase AI workflow application created from Genesis templates",
+  "description": "AI-powered assistant for creating persuasive business justifications",
   "type": "module",
   "engines": {
     "node": ">=18.0.0"

@@ -1,11 +1,11 @@
 /**
- * Document-Specific Templates for One-Pager
- * Pre-filled content for common one-pager use cases
+ * Document-Specific Templates for Business Justification Assistant
+ * Pre-filled content for common business justification use cases
  * @module document-specific-templates
  */
 
 /**
- * @typedef {Object} OnePagerTemplate
+ * @typedef {Object} BusinessJustificationTemplate
  * @property {string} id - Unique template identifier
  * @property {string} name - Display name
  * @property {string} icon - Emoji icon

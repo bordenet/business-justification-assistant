@@ -25,12 +25,12 @@ describe('Version History', () => {
 
   beforeEach(() => {
     localStorage.clear();
-    storage = createStorage('one-pager-test-storage');
+    storage = createStorage('business-justification-test-storage');
   });
 
   describe('saveVersion', () => {
     it('saves first version successfully', () => {
-      const result = storage.saveVersion('# One-Pager v1');
+      const result = storage.saveVersion('# Business Justification v1');
       expect(result.success).toBe(true);
       expect(result.versionNumber).toBe(1);
       expect(result.totalVersions).toBe(1);
@@ -140,9 +140,9 @@ describe('Version History', () => {
     });
 
     it('returns current version content', () => {
-      storage.saveVersion('# My one-pager draft');
+      storage.saveVersion('# My business justification draft');
       const draft = storage.loadDraft();
-      expect(draft.markdown).toBe('# My one-pager draft');
+      expect(draft.markdown).toBe('# My business justification draft');
     });
   });
 });

@@ -192,14 +192,14 @@ function showAboutModal() {
   // CUSTOMIZE: Update the title, description, and GitHub link for your project
   modal.innerHTML = `
         <div class="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-2xl shadow-xl">
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">📋 {{PROJECT_TITLE}}</h3>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">📋 Business Justification Assistant</h3>
             <div class="text-gray-700 dark:text-gray-300 space-y-3 mb-6">
                 <p>Generate documents using AI-assisted adversarial review.</p>
                 <p><strong>100% Client-Side:</strong> All your data is stored locally in your browser. Nothing is ever sent to any server.</p>
                 <p><strong>Privacy-First:</strong> No tracking, no analytics, no cookies (except preferences).</p>
             </div>
             <div class="flex justify-between items-center">
-                <a href="https://github.com/{{GITHUB_USER}}/{{GITHUB_REPO}}" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">View on GitHub →</a>
+                <a href="https://github.com/bordenet/business-justification-assistant" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">View on GitHub →</a>
                 <button type="button" id="close-about-btn" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">Close</button>
             </div>
         </div>

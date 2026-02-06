@@ -1,5 +1,5 @@
 // ============================================================
-// One-Pager Web Validator - Main Application
+// Business Justification Web Validator - Main Application
 // ============================================================
 
 import { validateOnePager } from './validator.js';
@@ -16,7 +16,7 @@ let currentPrompt = null;
 let isLLMMode = false;
 
 // Initialize storage with factory
-const storage = createStorage('one-pager-validator-history');
+const storage = createStorage('business-justification-validator-history');
 
 // ============================================================
 // DOM Elements
@@ -365,15 +365,15 @@ function showAbout() {
   modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
   modal.innerHTML = `
     <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
-      <h2 class="text-xl font-bold mb-4 dark:text-white">One-Pager Validator</h2>
+      <h2 class="text-xl font-bold mb-4 dark:text-white">Business Justification Validator</h2>
       <p class="text-gray-600 dark:text-gray-300 mb-4">
-        A client-side tool for validating one-pager documents against best practices.
+        A client-side tool for validating business justification documents against best practices.
       </p>
       <p class="text-gray-600 dark:text-gray-300 mb-4">
         <strong>Scoring Dimensions:</strong><br>
-        • Problem Clarity (30 pts)<br>
-        • Solution Quality (25 pts)<br>
-        • Scope Discipline (25 pts)<br>
+        • Evidence Quality (30 pts)<br>
+        • ROI/Financial Clarity (25 pts)<br>
+        • Options Analysis (25 pts)<br>
         • Completeness (20 pts)
       </p>
       <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">

@@ -1,54 +1,54 @@
 /**
- * Prompt generation for LLM-based One-Pager scoring
+ * Prompt generation for LLM-based Business Justification scoring
  */
 
 /**
  * Generate comprehensive LLM scoring prompt
- * @param {string} onePagerContent - The one-pager content to score
+ * @param {string} justificationContent - The business justification content to score
  * @returns {string} Complete prompt for LLM scoring
  */
-export function generateLLMScoringPrompt(onePagerContent) {
-  return `You are an expert Product Manager evaluating a One-Pager document.
+export function generateLLMScoringPrompt(justificationContent) {
+  return `You are an expert Finance/HR Business Partner evaluating a Business Justification document.
 
-Score this One-Pager using the following rubric (0-100 points total):
+Score this Business Justification using the following rubric (0-100 points total):
 
 ## SCORING RUBRIC
 
-### 1. Problem Clarity (30 points)
-- **Problem Statement (10 pts)**: Clear, specific problem definition with dedicated section
-- **Cost of Inaction (10 pts)**: Quantified impact of not solving this problem
-- **Business Focus (10 pts)**: Problem tied to customer/business value, not just technical
+### 1. Evidence Quality (30 points)
+- **Quantitative Data (12 pts)**: Numbers, percentages, metrics backing every claim (80/20 quant/qual)
+- **Credible Sources (10 pts)**: Industry benchmarks (DORA, Radford, Gartner), internal data with dates/sample sizes
+- **Before/After Comparisons (8 pts)**: Counterfactual analysis ("What if no action?"), control for confounders
 
-### 2. Solution Quality (25 points)
-- **Addresses Problem (10 pts)**: Solution clearly maps to stated problem
-- **Measurable Goals (10 pts)**: Goals are specific and measurable, not vague
-- **High-Level (5 pts)**: Solution stays at appropriate level, no implementation details
+### 2. ROI/Financial Clarity (25 points)
+- **Clear ROI Calculation (10 pts)**: Explicit formula, inputs, and result
+- **Payback Period (8 pts)**: Time to recoup investment (<12mo ideal)
+- **TCO Analysis (7 pts)**: 3-year view including hidden costs (implementation, training, ops, opportunity cost)
 
-### 3. Scope Discipline (25 points)
-- **In-Scope (8 pts)**: Clear definition of what WILL be done
-- **Out-of-Scope (9 pts)**: Explicit definition of what WON'T be done
-- **SMART Metrics (8 pts)**: Success metrics are Specific, Measurable, Achievable, Relevant, Time-bound
+### 3. Options Analysis (25 points)
+- **Alternatives Considered (10 pts)**: At least 3 options including do-nothing and build vs buy
+- **Do-Nothing Scenario (8 pts)**: Explicit cost/risk of inaction with sensitivity analysis
+- **Clear Recommendation (7 pts)**: Unambiguous ask with justification for chosen option
 
 ### 4. Completeness (20 points)
-- **Required Sections (8 pts)**: Problem, Solution, Goals, Scope, Metrics, Stakeholders, Timeline
-- **Stakeholders (6 pts)**: Clear identification of who's involved and their roles
-- **Timeline (6 pts)**: Realistic milestones and phased approach
+- **Executive Summary (7 pts)**: TL;DR lets stranger understand the ask in 30 seconds
+- **Risks & Mitigation (7 pts)**: Key risks identified with mitigation strategies
+- **Stakeholder Concerns (6 pts)**: Finance (ROI/payback), HR (equity/compliance), Legal (risk/liability) addressed
 
 ## CALIBRATION GUIDANCE
-- Be HARSH. Most one-pagers score 40-60. Only exceptional ones score 80+.
-- A score of 70+ means ready for executive decision-making.
-- One-pagers should fit on ONE PAGE - deduct points for verbosity.
-- Deduct points for EVERY vague qualifier without metrics.
-- Deduct points for weasel words ("should be able to", "might", "could potentially").
-- Deduct points for marketing fluff ("best-in-class", "cutting-edge", "world-class").
-- Reward explicit scope boundaries (both in AND out).
-- Reward quantified metrics and business impact.
-- Deduct points for missing required sections.
+- Be HARSH. Most business justifications score 40-60. Only exceptional ones score 80+.
+- A score of 70+ means ready for executive approval.
+- Deduct points for EVERY claim without quantified evidence.
+- Deduct points for vague sourcing ("industry standard", "best practice").
+- Deduct points for missing options analysis or do-nothing scenario.
+- Deduct points for sunk cost reasoning ("we've already invested X").
+- Reward specific ROI calculations with clear inputs.
+- Reward explicit risk identification and mitigation.
+- Reward multiple stakeholder perspective consideration.
 
-## ONE-PAGER TO EVALUATE
+## BUSINESS JUSTIFICATION TO EVALUATE
 
 \`\`\`
-${onePagerContent}
+${justificationContent}
 \`\`\`
 
 ## REQUIRED OUTPUT FORMAT
@@ -57,13 +57,13 @@ Provide your evaluation in this exact format:
 
 **TOTAL SCORE: [X]/100**
 
-### Problem Clarity: [X]/30
+### Evidence Quality: [X]/30
 [2-3 sentence justification]
 
-### Solution Quality: [X]/25
+### ROI/Financial Clarity: [X]/25
 [2-3 sentence justification]
 
-### Scope Discipline: [X]/25
+### Options Analysis: [X]/25
 [2-3 sentence justification]
 
 ### Completeness: [X]/20
@@ -82,81 +82,82 @@ Provide your evaluation in this exact format:
 
 /**
  * Generate critique prompt for detailed feedback
- * @param {string} onePagerContent - The one-pager content to critique
+ * @param {string} justificationContent - The business justification content to critique
  * @param {Object} currentResult - Current validation results
  * @returns {string} Complete prompt for critique
  */
-export function generateCritiquePrompt(onePagerContent, currentResult) {
+export function generateCritiquePrompt(justificationContent, currentResult) {
   const issuesList = [
-    ...(currentResult.problemClarity?.issues || []),
-    ...(currentResult.solution?.issues || []),
-    ...(currentResult.scope?.issues || []),
+    ...(currentResult.evidenceQuality?.issues || currentResult.problemClarity?.issues || []),
+    ...(currentResult.roiClarity?.issues || currentResult.solution?.issues || []),
+    ...(currentResult.optionsAnalysis?.issues || currentResult.scope?.issues || []),
     ...(currentResult.completeness?.issues || [])
   ].slice(0, 5).map(i => `- ${i}`).join('\n');
 
-  return `You are a senior Product Manager providing detailed feedback on a One-Pager.
+  return `You are a senior Finance/HR Business Partner providing detailed feedback on a Business Justification.
 
 ## CURRENT VALIDATION RESULTS
 Total Score: ${currentResult.totalScore}/100
-- Problem Clarity: ${currentResult.problemClarity?.score || 0}/30
-- Solution Quality: ${currentResult.solution?.score || 0}/25
-- Scope Discipline: ${currentResult.scope?.score || 0}/25
+- Evidence Quality: ${currentResult.evidenceQuality?.score || currentResult.problemClarity?.score || 0}/30
+- ROI/Financial Clarity: ${currentResult.roiClarity?.score || currentResult.solution?.score || 0}/25
+- Options Analysis: ${currentResult.optionsAnalysis?.score || currentResult.scope?.score || 0}/25
 - Completeness: ${currentResult.completeness?.score || 0}/20
 
 Key issues detected:
 ${issuesList || '- None detected by automated scan'}
 
-## ONE-PAGER TO CRITIQUE
+## BUSINESS JUSTIFICATION TO CRITIQUE
 
 \`\`\`
-${onePagerContent}
+${justificationContent}
 \`\`\`
 
 ## YOUR TASK
 
 Provide:
-1. **Executive Summary** (2-3 sentences on overall one-pager quality)
+1. **Executive Summary** (2-3 sentences on overall business justification quality)
 2. **Detailed Critique** by dimension:
    - What works well
    - What needs improvement
    - Specific suggestions with examples
-3. **Revised One-Pager** - A complete rewrite addressing all issues
+3. **Revised Business Justification** - A complete rewrite addressing all issues
 
-Be specific. Show exact rewrites. Keep it to ONE PAGE. Make it ready for executive decision-making.`;
+Be specific. Show exact rewrites. Keep it concise (2-3 pages max). Make it ready for executive approval.`;
 }
 
 /**
  * Generate rewrite prompt
- * @param {string} onePagerContent - The one-pager content to rewrite
+ * @param {string} justificationContent - The business justification content to rewrite
  * @param {Object} currentResult - Current validation results
  * @returns {string} Complete prompt for rewrite
  */
-export function generateRewritePrompt(onePagerContent, currentResult) {
-  return `You are a senior Product Manager rewriting a One-Pager to achieve a score of 85+.
+export function generateRewritePrompt(justificationContent, currentResult) {
+  return `You are a senior Finance/HR Business Partner rewriting a Business Justification to achieve a score of 85+.
 
 ## CURRENT SCORE: ${currentResult.totalScore}/100
 
-## ORIGINAL ONE-PAGER
+## ORIGINAL BUSINESS JUSTIFICATION
 
 \`\`\`
-${onePagerContent}
+${justificationContent}
 \`\`\`
 
 ## REWRITE REQUIREMENTS
 
-Create a complete, polished One-Pager that:
-1. Fits on ONE PAGE (concise, executive-focused)
-2. Has all required sections (Problem, Cost of Inaction, Solution, Goals, Scope, Metrics, Stakeholders, Timeline)
-3. Includes explicit "In Scope" AND "Out of Scope" definitions
-4. Has specific, quantified metrics (numbers, percentages, timeframes)
-5. Clearly ties problem to business/customer value
-6. Includes measurable goals tied to the problem
-7. Defines stakeholders and their roles
-8. Provides realistic timeline with phases/milestones
-9. Avoids vague qualifiers, weasel words, and marketing fluff
-10. Stays high-level (no implementation details)
+Create a complete, polished Business Justification that:
+1. Is concise (2-3 pages max, executive-focused)
+2. Has a TL;DR/Executive Summary that lets a stranger approve in 30 seconds
+3. Includes quantified evidence for EVERY claim (80/20 quant/qual split)
+4. Cites credible sources (industry benchmarks, internal data with dates/sample sizes)
+5. Has explicit ROI calculation with formula, inputs, and result
+6. Shows payback period and 3-year TCO analysis
+7. Includes at least 3 options: do-nothing, minimal investment, full investment
+8. Has explicit do-nothing scenario with sensitivity analysis
+9. Addresses stakeholder concerns: Finance (ROI), HR (equity), Legal (risk)
+10. Identifies key risks with mitigation strategies
+11. Avoids sunk cost reasoning, vague sourcing, and unsubstantiated claims
 
-Output ONLY the rewritten One-Pager in markdown format. No commentary.`;
+Output ONLY the rewritten Business Justification in markdown format. No commentary.`;
 }
 
 /**

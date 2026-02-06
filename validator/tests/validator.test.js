@@ -1,6 +1,6 @@
 /**
- * One-Pager Validator tests - Comprehensive scoring tests
- * Tests all exported functions for scoring one-pager documents
+ * Business Justification Validator tests - Comprehensive scoring tests
+ * Tests all exported functions for scoring business justification documents
  */
 
 import {
@@ -59,13 +59,13 @@ describe('validateOnePager', () => {
   });
 
   describe('fixture-based scoring', () => {
-    test('scores minimal one-pager correctly', () => {
+    test('scores minimal business justification correctly', () => {
       const result = validateOnePager(fixtures.minimal.content);
       expect(result.totalScore).toBeGreaterThanOrEqual(fixtures.minimal.expectedMinScore);
       expect(result.totalScore).toBeLessThanOrEqual(fixtures.minimal.expectedMaxScore);
     });
 
-    test('scores complete one-pager correctly', () => {
+    test('scores complete business justification correctly', () => {
       const result = validateOnePager(fixtures.complete.content);
       expect(result.totalScore).toBeGreaterThanOrEqual(fixtures.complete.expectedMinScore);
       expect(result.totalScore).toBeLessThanOrEqual(fixtures.complete.expectedMaxScore);

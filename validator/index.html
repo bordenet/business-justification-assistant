@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>One-Pager Validator</title>
+  <title>Business Justification Validator</title>
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -25,7 +25,7 @@
     <!-- Header -->
     <header class="bg-slate-600 dark:bg-slate-900 border-b border-slate-500 dark:border-slate-800 shadow-sm">
       <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <h1 class="text-3xl font-bold text-white dark:text-white">One-Pager Validator</h1>
+        <h1 class="text-3xl font-bold text-white dark:text-white">Business Justification Validator</h1>
         <div class="flex items-center gap-3">
           <button
             id="btn-dark-mode"
@@ -61,15 +61,15 @@
           <!-- Left: Markdown Editor -->
           <div class="flex-1 flex flex-col min-w-0">
             <label for="editor" class="block text-sm font-semibold text-white dark:text-slate-300 mb-1">
-              Paste Your One-Pager
+              Paste Your Business Justification
             </label>
             <p class="text-xs text-slate-300 dark:text-slate-400 mb-2">
-              Generate a one-pager with the <a href="https://bordenet.github.io/one-pager/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline">One-Pager Assistant</a>, then paste the markdown here. Look for <code class="bg-slate-700 px-1 rounded">#</code> headings to identify sections.
+              Generate a business justification with the <a href="https://bordenet.github.io/business-justification-assistant/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline">Business Justification Assistant</a>, then paste the markdown here. Look for <code class="bg-slate-700 px-1 rounded">#</code> headings to identify sections.
             </p>
             <textarea
               id="editor"
               class="flex-1 w-full p-4 border border-slate-400 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 resize-none font-mono text-sm"
-              placeholder="→ Paste your One-Pager here (Cmd/Ctrl+V)&#10;  Coming from the Assistant? It's already in your clipboard.&#10;&#10;# Your One-Pager Title&#10;&#10;The validator scores:&#10;• Problem Clarity (30 pts)&#10;• Solution Quality (25 pts)&#10;• Scope Discipline (25 pts)&#10;• Completeness (20 pts)"
+              placeholder="→ Paste your Business Justification here (Cmd/Ctrl+V)&#10;  Coming from the Assistant? It's already in your clipboard.&#10;&#10;# Your Business Justification Title&#10;&#10;The validator scores:&#10;• Evidence Quality (30 pts)&#10;• ROI/Financial Clarity (25 pts)&#10;• Options Analysis (25 pts)&#10;• Completeness (20 pts)"
             ></textarea>
           </div>
 
@@ -225,7 +225,7 @@
           <ol class="text-sm text-slate-300 dark:text-slate-400 mb-4 list-decimal list-inside space-y-1">
             <li>Click a button below to copy a prompt to your clipboard</li>
             <li>Paste into Claude.ai and submit</li>
-            <li>Copy the revised one-pager from Claude's response</li>
+            <li>Copy the revised business justification from Claude's response</li>
             <li>Select all text in the editor above (Cmd+A) and paste to replace</li>
           </ol>
 
@@ -311,29 +311,29 @@
   <!-- About Modal (hidden by default) -->
   <div id="about-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
     <div class="bg-white dark:bg-slate-900 rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">About One-Pager Validator</h2>
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">About Business Justification Validator</h2>
       <p class="text-slate-700 dark:text-slate-300 mb-4">
-        A client-side tool for validating one-pager documents against best practices.
+        A client-side tool for validating business justification documents against best practices.
       </p>
       <p class="text-slate-700 dark:text-slate-300 mb-6">
-        The validator scores your one-pager across four dimensions:
+        The validator scores your business justification across four dimensions:
       </p>
       <ul class="space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
         <li class="flex items-start gap-2">
           <span class="text-emerald-500 font-bold">•</span>
-          <span><strong>Problem Clarity (30 pts)</strong> - Clear problem statement, context, and impact</span>
+          <span><strong>Evidence Quality (30 pts)</strong> - Quantitative data, credible sources, before/after comparisons</span>
         </li>
         <li class="flex items-start gap-2">
           <span class="text-blue-500 font-bold">•</span>
-          <span><strong>Solution Quality (25 pts)</strong> - Well-defined solution, approach, and benefits</span>
+          <span><strong>ROI/Financial Clarity (25 pts)</strong> - Clear ROI, payback period, TCO analysis</span>
         </li>
         <li class="flex items-start gap-2">
           <span class="text-amber-500 font-bold">•</span>
-          <span><strong>Scope Discipline (25 pts)</strong> - Clear scope boundaries and constraints</span>
+          <span><strong>Options Analysis (25 pts)</strong> - Alternatives considered, do-nothing scenario, recommendation</span>
         </li>
         <li class="flex items-start gap-2">
           <span class="text-rose-500 font-bold">•</span>
-          <span><strong>Completeness (20 pts)</strong> - Timeline, resources, success metrics, risks</span>
+          <span><strong>Completeness (20 pts)</strong> - Executive summary, risks, stakeholder concerns addressed</span>
         </li>
       </ul>
       <button

@@ -1,11 +1,15 @@
 /**
- * One-Pager Validator - Scoring Logic
+ * Business Justification Validator - Scoring Logic
  *
- * Scoring Dimensions:
- * 1. Problem Clarity (30 pts) - Problem statement, cost of inaction, customer focus
- * 2. Solution Quality (25 pts) - Solution addresses problem, measurable goals, high-level
- * 3. Scope Discipline (25 pts) - In/out scope, success metrics, SMART criteria
- * 4. Completeness (20 pts) - Required sections, stakeholders, timeline
+ * Scoring Dimensions (based on About.md research):
+ * 1. Evidence Quality (30 pts) - Quantitative data, credible sources, before/after comparisons
+ * 2. ROI/Financial Clarity (25 pts) - Clear ROI, payback period, TCO analysis
+ * 3. Options Analysis (25 pts) - Alternatives considered, do-nothing scenario, recommendation
+ * 4. Completeness (20 pts) - Executive summary, risks, stakeholder concerns addressed
+ *
+ * Note: The scoring functions use generic names (problemClarity, solution, scope)
+ * for compatibility with the shared validator UI. The prompts.js maps these to
+ * business justification terminology.
  *
  * CUSTOMIZE: Import slop detection for AI-generated content detection
  */
@@ -530,8 +534,8 @@ export function scoreCompleteness(text) {
 // ============================================================================
 
 /**
- * Validate a one-pager and return comprehensive scoring results
- * @param {string} text - One-pager content
+ * Validate a business justification and return comprehensive scoring results
+ * @param {string} text - Business justification content
  * @returns {Object} Complete validation results
  */
 export function validateOnePager(text) {
