@@ -38,15 +38,15 @@ const SCOPE_PATTERNS = {
   section: /^#+\s*(scope|boundaries)/im
 };
 
-// Required sections
+// Required sections - must match validator.js for consistent scoring
 const REQUIRED_SECTIONS = [
-  { pattern: /^#+\s*(problem|challenge|context)/im, name: 'Problem', weight: 2 },
-  { pattern: /^#+\s*(solution|proposal|approach)/im, name: 'Solution', weight: 2 },
-  { pattern: /^#+\s*(goal|objective|benefit)/im, name: 'Goals', weight: 2 },
-  { pattern: /^#+\s*(scope)/im, name: 'Scope', weight: 2 },
-  { pattern: /^#+\s*(success|metric|kpi)/im, name: 'Metrics', weight: 1 },
-  { pattern: /^#+\s*(stakeholder|team|owner)/im, name: 'Stakeholders', weight: 1 },
-  { pattern: /^#+\s*(timeline|milestone)/im, name: 'Timeline', weight: 1 }
+  { pattern: /^#+\s*(problem|challenge|pain.?point|context)/im, name: 'Problem/Challenge', weight: 2 },
+  { pattern: /^#+\s*(solution|proposal|approach|recommendation)/im, name: 'Solution/Proposal', weight: 2 },
+  { pattern: /^#+\s*(goal|objective|benefit|outcome)/im, name: 'Goals/Benefits', weight: 2 },
+  { pattern: /^#+\s*(scope|in.scope|out.of.scope|boundary|boundaries)/im, name: 'Scope Definition', weight: 2 },
+  { pattern: /^#+\s*(success|metric|kpi|measure|success.metric)/im, name: 'Success Metrics', weight: 1 },
+  { pattern: /^#+\s*(stakeholder|team|owner|raci|responsible)/im, name: 'Stakeholders/Team', weight: 1 },
+  { pattern: /^#+\s*(timeline|milestone|phase|schedule|roadmap)/im, name: 'Timeline/Milestones', weight: 1 }
 ];
 
 function scoreProblemClarity(text) {
