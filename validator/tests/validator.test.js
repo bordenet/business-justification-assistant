@@ -92,17 +92,18 @@ describe('validateOnePager', () => {
       }
     });
 
-    test('total score equals sum of dimension scores', () => {
+    test('total score equals sum of dimension scores minus slop penalty', () => {
       const result = validateOnePager(fixtures.complete.content);
       const sum = result.problemClarity.score + result.solution.score +
                   result.scope.score + result.completeness.score;
-      expect(result.totalScore).toBe(sum);
+      const slopDeduction = result.slopDetection?.deduction || 0;
+      expect(result.totalScore).toBe(sum - slopDeduction);
     });
   });
 });
 
 // ============================================================================
-// scoreProblemClarity tests
+// scoreProblemClarity tests (now aliases scoreStrategicEvidence - 4-pillar taxonomy)
 // ============================================================================
 describe('scoreProblemClarity', () => {
   test('maxScore is 30', () => {
@@ -110,27 +111,31 @@ describe('scoreProblemClarity', () => {
     expect(result.maxScore).toBe(30);
   });
 
-  test('awards points for problem section', () => {
-    const withSection = scoreProblemClarity('# Problem\nWe have a problem with customer churn.');
-    const withoutSection = scoreProblemClarity('We have a problem with customer churn.');
-    expect(withSection.score).toBeGreaterThan(withoutSection.score);
+  test('awards points for quantified problem section', () => {
+    // New 4-pillar taxonomy: Strategic Evidence requires quantified data
+    const withQuantified = scoreProblemClarity('# Problem\nWe lose 40% of customers annually, costing $2M.');
+    const withoutQuantified = scoreProblemClarity('# Problem\nWe have a problem.');
+    expect(withQuantified.score).toBeGreaterThan(withoutQuantified.score);
   });
 
-  test('awards points for cost of inaction', () => {
-    const withCost = scoreProblemClarity('# Problem\nWithout action, we risk losing 40% of revenue.');
-    const withoutCost = scoreProblemClarity('# Problem\nWe have a problem.');
-    expect(withCost.score).toBeGreaterThan(withoutCost.score);
+  test('awards points for cited sources', () => {
+    // New 4-pillar taxonomy: Strategic Evidence rewards credible sources
+    const withSource = scoreProblemClarity('# Problem\nAccording to Gartner 2024, we lose 40% annually.');
+    const withoutSource = scoreProblemClarity('# Problem\nWe lose 40% annually.');
+    expect(withSource.score).toBeGreaterThan(withoutSource.score);
   });
 
-  test('awards points for business focus', () => {
-    const withBusiness = scoreProblemClarity('# Problem\nCustomers are struggling with our product, impacting revenue.');
-    const withoutBusiness = scoreProblemClarity('# Problem\nThe system is slow.');
-    expect(withBusiness.score).toBeGreaterThan(withoutBusiness.score);
+  test('awards points for business focus with before/after', () => {
+    // New 4-pillar taxonomy: Strategic Evidence rewards business focus + before/after
+    // Need both "business focus" keywords AND "before/after" keywords for full points
+    const withBeforeAfter = scoreProblemClarity('# Problem\nOur customers currently wait 5 min (before). Target: 2 min (after). This impacts customer satisfaction.');
+    const withoutBeforeAfter = scoreProblemClarity('# Problem\nOur business has slow systems.');
+    expect(withBeforeAfter.score).toBeGreaterThan(withoutBeforeAfter.score);
   });
 });
 
 // ============================================================================
-// scoreSolutionQuality tests
+// scoreSolutionQuality tests (now aliases scoreFinancialJustification - 4-pillar taxonomy)
 // ============================================================================
 describe('scoreSolutionQuality', () => {
   test('maxScore is 25', () => {
@@ -138,21 +143,23 @@ describe('scoreSolutionQuality', () => {
     expect(result.maxScore).toBe(25);
   });
 
-  test('awards points for solution section with problem context', () => {
-    // Solution scoring requires problem context to award full points
-    const withContext = scoreSolutionQuality('# Problem\nWe have issues.\n# Solution\nWe will implement a new approach.');
-    const withoutContext = scoreSolutionQuality('# Solution\nWe will implement a new approach.');
-    expect(withContext.score).toBeGreaterThan(withoutContext.score);
+  test('awards points for ROI calculation', () => {
+    // New 4-pillar taxonomy: Financial Justification rewards ROI
+    const withROI = scoreSolutionQuality('# Financial\nROI: (100000 - 50000) / 50000 = 100%');
+    const withoutROI = scoreSolutionQuality('# Solution\nWe will implement a new approach.');
+    expect(withROI.score).toBeGreaterThan(withoutROI.score);
   });
 
-  test('awards points for measurable goals', () => {
-    const withGoals = scoreSolutionQuality('# Solution\nOur goal is to achieve 50% improvement, measured by KPIs.');
-    const withoutGoals = scoreSolutionQuality('# Solution\nWe will make things better.');
-    expect(withGoals.score).toBeGreaterThan(withoutGoals.score);
+  test('awards points for payback period', () => {
+    // New 4-pillar taxonomy: Financial Justification rewards payback period
+    const withPayback = scoreSolutionQuality('Payback period is 6 months with monthly savings of $10K.');
+    const withoutPayback = scoreSolutionQuality('We will make things better.');
+    expect(withPayback.score).toBeGreaterThan(withoutPayback.score);
   });
+});
 
 // ============================================================================
-// scoreScopeDiscipline tests
+// scoreScopeDiscipline tests (now aliases scoreOptionsAnalysis - 4-pillar taxonomy)
 // ============================================================================
 describe('scoreScopeDiscipline', () => {
   test('maxScore is 25', () => {
@@ -160,28 +167,30 @@ describe('scoreScopeDiscipline', () => {
     expect(result.maxScore).toBe(25);
   });
 
-  test('awards points for in-scope items', () => {
-    // "In scope" must match as a phrase, and needs scope section for full points
-    const withInScope = scoreScopeDiscipline('# Scope\\nWe will deliver this feature. We are including dashboard.');
-    const withoutInScope = scoreScopeDiscipline('Some content without scope.');
-    expect(withInScope.score).toBeGreaterThan(withoutInScope.score);
+  test('awards points for do-nothing scenario', () => {
+    // New 4-pillar taxonomy: Options Analysis rewards do-nothing scenario
+    const withDoNothing = scoreScopeDiscipline('# Options\n## Do Nothing\nContinue losing $50K annually. Cost of inaction: $150K over 3 years.');
+    const withoutDoNothing = scoreScopeDiscipline('Some content without options.');
+    expect(withDoNothing.score).toBeGreaterThan(withoutDoNothing.score);
   });
 
-  test('awards points for out-of-scope items', () => {
-    const withOutOfScope = scoreScopeDiscipline('Out of scope: mobile apps, third-party integrations.');
-    const withoutOutOfScope = scoreScopeDiscipline('Some content.');
-    expect(withOutOfScope.score).toBeGreaterThan(withoutOutOfScope.score);
+  test('awards points for alternatives', () => {
+    // New 4-pillar taxonomy: Options Analysis rewards alternatives
+    const withAlternatives = scoreScopeDiscipline('# Options\n## Alternative 1\nMinimal investment.\n## Alternative 2\nFull solution.');
+    const withoutAlternatives = scoreScopeDiscipline('Some content.');
+    expect(withAlternatives.score).toBeGreaterThan(withoutAlternatives.score);
   });
 
-  test('awards points for success metrics', () => {
-    const withMetrics = scoreScopeDiscipline('# Success Metrics\\nReduce latency by 50%.');
-    const withoutMetrics = scoreScopeDiscipline('Some content.');
-    expect(withMetrics.score).toBeGreaterThan(withoutMetrics.score);
+  test('awards points for recommendation', () => {
+    // New 4-pillar taxonomy: Options Analysis rewards clear recommendation
+    const withRec = scoreScopeDiscipline('## Recommendation\nOption 2 is recommended because it has the best ROI.');
+    const withoutRec = scoreScopeDiscipline('Some content.');
+    expect(withRec.score).toBeGreaterThan(withoutRec.score);
   });
 });
 
 // ============================================================================
-// scoreCompleteness tests
+// scoreCompleteness tests (now aliases scoreExecutionCompleteness - 4-pillar taxonomy)
 // ============================================================================
 describe('scoreCompleteness', () => {
   test('maxScore is 20', () => {
@@ -189,16 +198,25 @@ describe('scoreCompleteness', () => {
     expect(result.maxScore).toBe(20);
   });
 
-  test('awards points for stakeholder section', () => {
-    const withStakeholders = scoreCompleteness('# Stakeholders\\nOwner: John. Team: Engineering.');
-    const withoutStakeholders = scoreCompleteness('Some content.');
-    expect(withStakeholders.score).toBeGreaterThan(withoutStakeholders.score);
+  test('awards points for executive summary', () => {
+    // New 4-pillar taxonomy: Execution Completeness rewards executive summary
+    const withExecSummary = scoreCompleteness('# Executive Summary\nRequest $50K to save $100K annually.');
+    const withoutExecSummary = scoreCompleteness('Some content.');
+    expect(withExecSummary.score).toBeGreaterThan(withoutExecSummary.score);
   });
 
-  test('awards points for timeline section', () => {
-    const withTimeline = scoreCompleteness('# Timeline\\nPhase 1: Q1. Phase 2: Q2.');
-    const withoutTimeline = scoreCompleteness('Some content.');
-    expect(withTimeline.score).toBeGreaterThan(withoutTimeline.score);
+  test('awards points for risks section', () => {
+    // New 4-pillar taxonomy: Execution Completeness rewards risks with mitigation
+    const withRisks = scoreCompleteness('# Risks\n1. Timeline risk - Mitigation: buffer weeks\n2. Budget risk - Mitigation: contingency fund');
+    const withoutRisks = scoreCompleteness('Some content.');
+    expect(withRisks.score).toBeGreaterThan(withoutRisks.score);
+  });
+
+  test('awards points for stakeholder concerns', () => {
+    // New 4-pillar taxonomy: Execution Completeness rewards addressing Finance/HR/Legal
+    const withConcerns = scoreCompleteness('# Stakeholders\nFinance: Budget approved. HR: Training plan ready. Legal: No compliance issues.');
+    const withoutConcerns = scoreCompleteness('Some content.');
+    expect(withConcerns.score).toBeGreaterThan(withoutConcerns.score);
   });
 });
 
@@ -207,7 +225,7 @@ describe('scoreCompleteness', () => {
 // ============================================================================
 describe('detectProblemStatement', () => {
   test('detects problem section', () => {
-    const result = detectProblemStatement('# Problem\\nWe have an issue.');
+    const result = detectProblemStatement('# Problem\nWe have an issue.');
     expect(result.hasProblemSection).toBe(true);
   });
 
@@ -241,7 +259,7 @@ describe('detectCostOfInaction', () => {
 
 describe('detectSolution', () => {
   test('detects solution section', () => {
-    const result = detectSolution('# Solution\\nWe will build a new system.');
+    const result = detectSolution('# Solution\nWe will build a new system.');
     expect(result.hasSolutionSection).toBe(true);
   });
 
@@ -275,7 +293,7 @@ describe('detectScope', () => {
 
 describe('detectSuccessMetrics', () => {
   test('detects metrics section', () => {
-    const result = detectSuccessMetrics('# Success Metrics\\nReduce errors by 50%.');
+    const result = detectSuccessMetrics('# Success Metrics\nReduce errors by 50%.');
     expect(result.hasMetricsSection).toBe(true);
   });
 
@@ -287,19 +305,19 @@ describe('detectSuccessMetrics', () => {
 
 describe('detectSections', () => {
   test('finds present sections', () => {
-    const result = detectSections('# Problem\\n# Solution\\n# Goals');
+    const result = detectSections('# Problem\n# Solution\n# Goals');
     expect(result.found.length).toBeGreaterThan(0);
   });
 
   test('identifies missing sections', () => {
-    const result = detectSections('# Problem\\nSome content.');
+    const result = detectSections('# Problem\nSome content.');
     expect(result.missing.length).toBeGreaterThan(0);
   });
 });
 
 describe('detectStakeholders', () => {
   test('detects stakeholder section', () => {
-    const result = detectStakeholders('# Stakeholders\\nOwner: Product Team.');
+    const result = detectStakeholders('# Stakeholders\nOwner: Product Team.');
     expect(result.hasStakeholderSection).toBe(true);
   });
 
@@ -311,7 +329,7 @@ describe('detectStakeholders', () => {
 
 describe('detectTimeline', () => {
   test('detects timeline section', () => {
-    const result = detectTimeline('# Timeline\\nQ1: Design. Q2: Build.');
+    const result = detectTimeline('# Timeline\nQ1: Design. Q2: Build.');
     expect(result.hasTimelineSection).toBe(true);
   });
 
@@ -319,5 +337,4 @@ describe('detectTimeline', () => {
     const result = detectTimeline('Phase 1: Research. Phase 2: Implementation.');
     expect(result.hasPhasing).toBe(true);
   });
-});
 });

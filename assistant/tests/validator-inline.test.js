@@ -42,41 +42,52 @@ describe('Inline One-Pager Validator', () => {
     });
 
     test('should score a well-structured one-pager', () => {
+      // This fixture includes all 4 pillars: Strategic Evidence, Financial Justification,
+      // Options Analysis, and Execution Completeness
       const goodOnePager = `
+# Executive Summary
+Request $30K to automate data entry, saving $50K annually. ROI: 167%. Payback: 7 months.
+
 # Problem Statement
 Our customers struggle with manual data entry, causing 500+ hours wasted per month.
-The cost of inaction is $50,000 annually in lost productivity.
-This impacts our business revenue and customer satisfaction.
+According to Gartner 2024, industry average is 100 hours. This costs $50,000 annually
+in lost productivity (source: Q3 Ops Report). Before: 500 hours. After: 100 hours target.
 
-## Solution
-We will build an automated data pipeline that reduces manual effort by 80%.
-Our approach delivers measurable goals including faster processing and fewer errors.
+# Financial Justification
+## ROI Calculation
+- Annual benefit: $50K saved
+- Cost: $30K implementation
+- ROI: (50,000 - 30,000) / 30,000 × 100 = 67%
 
-## Goals and Benefits
-- Reduce processing time by 75%
-- Improve data accuracy to 99%
-- Save $40,000 per year
+## Payback Period
+Monthly savings of $4.2K, payback achieved in 7 months.
 
-## Scope
-### In Scope
-- We will automate the ingestion process
-- We will provide real-time monitoring
+## 3-Year TCO
+- Year 1: $30K + $5K ops = $35K
+- Years 2-3: $5K/year
+- Total: $45K vs $150K benefit
 
-### Out of Scope
-- We will not modify the legacy database
-- Phase 2: Advanced analytics (future)
+# Options Analysis
+## Option 1: Do Nothing
+Continue losing $50K annually. Risk: team burnout, customer churn.
 
-## Success Metrics
-- Measure: 90% reduction in manual tasks
-- KPI: Less than 1% error rate
-- Target: Full deployment in Q2
+## Option 2: Minimal ($10K)
+Partial automation, 40% reduction. Basic phase 1 only.
 
-## Stakeholders
-- Product Owner: Jane Doe (responsible)
-- Engineering Lead: John Smith (accountable)
-- Team: Core Platform
+## Option 3: Full Solution ($30K) - RECOMMENDED
+Full automation, 80% reduction. Best ROI.
 
-## Timeline
+# Risks
+1. Integration risk - Mitigation: phased rollout
+2. Training risk - Mitigation: documentation
+
+# Stakeholders
+- Finance: Budget approved, payback acceptable
+- HR: Training plan in place
+- Owner: Jane Doe (responsible)
+- Lead: John Smith (accountable)
+
+# Timeline
 - Phase 1 (Q1): Design and prototype
 - Phase 2 (Q2): Development and testing
 - Milestone: Production launch by end of Q2
@@ -99,17 +110,22 @@ We will build something great.
       expect(result.problemClarity.issues.some(i => i.toLowerCase().includes('problem'))).toBe(true);
     });
 
-    test('should identify missing out-of-scope', () => {
-      const noOutOfScope = `
+    test('should identify missing options analysis', () => {
+      // New 4-pillar taxonomy: scope now checks for Options Analysis (do-nothing, alternatives)
+      const noOptions = `
 # Problem
 There is a big problem affecting our users and costing the business money.
 
-## Scope
-- In scope: We will do good things
-- We will deliver value
+## Solution
+We will fix it with our approach.
       `.repeat(2);
-      const result = validateDocument(noOutOfScope);
-      expect(result.scope.issues.some(i => i.toLowerCase().includes('out-of-scope'))).toBe(true);
+      const result = validateDocument(noOptions);
+      // Should flag missing do-nothing scenario or alternatives
+      expect(result.scope.issues.some(i =>
+        i.toLowerCase().includes('do-nothing') ||
+        i.toLowerCase().includes('alternative') ||
+        i.toLowerCase().includes('option')
+      )).toBe(true);
     });
   });
 
@@ -188,16 +204,19 @@ This impacts our business revenue and customer satisfaction.
   });
 
   describe('scoreSolutionQuality', () => {
+    // Now aliases scoreFinancialJustification - 4-pillar taxonomy
     test('should return maxScore of 25', () => {
       const result = scoreSolutionQuality('Solution proposal');
       expect(result.maxScore).toBe(25);
     });
 
-    test('should score higher for measurable solutions', () => {
+    test('should score higher for financial justification', () => {
+      // New 4-pillar taxonomy: scoreSolutionQuality now checks for ROI, payback, TCO
       const content = `
-## Solution
-We will build an automated data pipeline.
-Our approach delivers measurable goals including 80% reduction.
+## Financial Justification
+ROI calculation: (100000 - 50000) / 50000 = 100%
+Payback period is 6 months with $10K monthly savings.
+TCO over 3 years: $150K implementation + $50K ops.
       `.repeat(2);
       const result = scoreSolutionQuality(content);
       expect(result.score).toBeGreaterThan(0);
@@ -205,21 +224,24 @@ Our approach delivers measurable goals including 80% reduction.
   });
 
   describe('scoreScopeDiscipline', () => {
+    // Now aliases scoreOptionsAnalysis - 4-pillar taxonomy
     test('should return maxScore of 25', () => {
       const result = scoreScopeDiscipline('Scope definition');
       expect(result.maxScore).toBe(25);
     });
 
-    test('should score higher for clear scope', () => {
+    test('should score higher for options analysis', () => {
+      // New 4-pillar taxonomy: scoreScopeDiscipline now checks for do-nothing, alternatives
       const content = `
-## Scope
-### In Scope
-- We will automate the ingestion process
-- We will provide real-time monitoring
+## Options Analysis
+### Do Nothing
+Continue losing $50K annually. Cost of inaction over 3 years: $150K.
 
-### Out of Scope
-- We will not modify the legacy database
-- Phase 2: Advanced analytics
+### Alternative 1: Minimal Investment
+Basic improvements only.
+
+### Alternative 2: Full Solution - RECOMMENDED
+Complete solution with best ROI.
       `.repeat(2);
       const result = scoreScopeDiscipline(content);
       expect(result.score).toBeGreaterThan(0);
@@ -227,21 +249,24 @@ Our approach delivers measurable goals including 80% reduction.
   });
 
   describe('scoreCompleteness', () => {
+    // Now aliases scoreExecutionCompleteness - 4-pillar taxonomy
     test('should return maxScore of 20', () => {
       const result = scoreCompleteness('Complete document');
       expect(result.maxScore).toBe(20);
     });
 
-    test('should score higher for comprehensive content', () => {
+    test('should score higher for execution completeness', () => {
+      // New 4-pillar taxonomy: scoreCompleteness now checks for exec summary, risks, stakeholder concerns
       const content = `
-## Success Metrics
-- KPI: 90% reduction in manual tasks
+## Executive Summary
+Request $50K to save $100K annually. ROI: 100%.
+
+## Risks
+1. Timeline risk - Mitigation: buffer weeks
+2. Budget risk - Mitigation: contingency fund
 
 ## Stakeholders
-- Product Owner: Jane Doe
-
-## Timeline
-- Phase 1 (Q1): Design
+Finance: Budget approved. HR: Training plan. Legal: Compliance cleared.
       `.repeat(2);
       const result = scoreCompleteness(content);
       expect(result.score).toBeGreaterThan(0);
@@ -255,16 +280,18 @@ Our approach delivers measurable goals including 80% reduction.
 
 describe('Detection Functions', () => {
   describe('detectProblemStatement', () => {
+    // Now aliases detectStrategicEvidence in 4-pillar taxonomy
     test('should detect problem section', () => {
       const content = '# Problem Statement\nUsers struggle with data entry.';
       const result = detectProblemStatement(content);
       expect(result.hasProblemSection).toBe(true);
     });
 
-    test('should detect cost of inaction', () => {
-      const content = 'The cost of inaction is $50,000 in lost productivity.';
+    test('should detect business focus', () => {
+      // 4-pillar taxonomy: detectProblemStatement (via detectStrategicEvidence) detects business focus
+      const content = 'This impacts our customer satisfaction and business revenue significantly.';
       const result = detectProblemStatement(content);
-      expect(result.hasCostOfInaction).toBe(true);
+      expect(result.hasBusinessFocus).toBe(true);
     });
 
     test('should detect quantified problems', () => {
@@ -276,7 +303,8 @@ describe('Detection Functions', () => {
 
   describe('detectCostOfInaction', () => {
     test('should detect cost language', () => {
-      const content = 'The cost of not acting is significant lost revenue.';
+      // Pattern matches: do-nothing, status quo, inaction, without this, etc.
+      const content = 'If we do nothing, we continue losing revenue. The status quo is unsustainable.';
       const result = detectCostOfInaction(content);
       expect(result.hasCostLanguage).toBe(true);
     });

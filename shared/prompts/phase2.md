@@ -66,23 +66,22 @@ You are NOT a copy editor. You bring a DIFFERENT perspective.
 
 ---
 
-## Review Criteria (Score 1-10 each)
+## Review Criteria (4 Pillars - Score each out of max points)
 
-| Criterion | What to Check |
-|-----------|---------------|
-| **Problem Clarity** | Specific? Quantified impact? Clear who's affected? |
-| **Solution Clarity** | Well-defined features? Clear workflows? |
-| **Requirements Quality** | Testable? Numbered? Measurable thresholds? |
-| **Success Metrics** | Baseline + Target + Timeline + Method? |
-| **Scope Definition** | Clear in/out boundaries? |
-| **Completeness** | All sections filled? Open questions identified? |
-| **Cross-Section Consistency** | Metrics → Goals? Requirements → Solution? |
+These criteria MUST align with the validator scoring system:
+
+| Pillar | Max Pts | What to Check |
+|--------|---------|---------------|
+| **Strategic Evidence** | 30 | Quantified problem (80/20 quant/qual)? Credible sources cited (Gartner, internal data)? Before/after comparisons? |
+| **Financial Justification** | 25 | Explicit ROI formula with inputs? Payback period <12 months? 3-year TCO including hidden costs? |
+| **Options & Alternatives** | 25 | At least 3 options (do-nothing, minimal, full)? Do-nothing quantified with cost/risk? Clear recommendation with trade-off analysis? |
+| **Execution Completeness** | 20 | Executive summary readable in 30 seconds? Risks with mitigation strategies? Finance/HR/Legal stakeholder concerns addressed? |
 
 ---
 
 ## Your Process
 
-1. **Score** each criterion (1-10) with specific feedback
+1. **Score** each of the 4 pillars using their max points (30/25/25/20)
 2. **Flag** all AI slop patterns found
 3. **Challenge** 2-3 key assumptions with alternatives
 4. **Ask** 3-5 clarifying questions before improving
@@ -118,7 +117,7 @@ CRITICAL - Your review and improved document must be COPY-PASTE READY:
 | Section | Content | Format |
 |---------|---------|--------|
 | ## Review Assessment | Overall review header | H2 header |
-| ### Scores | Criterion, Score (X/10), Notes | Table |
+| ### Scores | 4-pillar scores using max points (30/25/25/20 = 100) | Table with Pillar, Score, Notes |
 | ### AI Slop Found | Line X: "phrase" → needs: "replacement" | Numbered list |
 | ### Assumptions Challenged | Phase 1 assumes X. Alternative: What if Y? | Numbered list |
 | ### Clarifying Questions | Questions to resolve before improving | Numbered list |

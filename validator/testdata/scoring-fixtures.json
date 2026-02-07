@@ -1,22 +1,26 @@
 {
   "minimal": {
     "content": "# Problem\n\nWe have a problem.\n\n# Solution\n\nWe will fix it.",
-    "expectedMinScore": 5,
-    "expectedMaxScore": 30
+    "expectedMinScore": 0,
+    "expectedMaxScore": 20,
+    "note": "Minimal content - no quantified evidence, ROI, options, or execution details"
   },
   "complete": {
-    "content": "# Problem\n\nOur customers struggle with onboarding, leading to 40% churn in the first month. This costs the business $2 million annually in lost revenue. Without action, we risk losing market share to competitors who offer smoother experiences.\n\n# Solution\n\nWe will implement a guided onboarding flow that reduces time-to-value by 60%. Our goal is to achieve 90% completion rate within the first week. We'll measure success through engagement metrics and retention rates.\n\n# Goals\n\n- Reduce first-month churn by 50%\n- Increase user activation by 40%\n- Achieve 90% onboarding completion rate\n\n# Scope\n\n## In Scope\n- Guided product tour\n- Progress tracking dashboard\n- Automated email reminders\n\n## Out of Scope\n- Mobile app onboarding (phase 2)\n- Third-party integrations\n- Custom enterprise flows\n\n# Success Metrics\n\n| Metric | Target | Timeline |\n|--------|--------|----------|\n| Churn rate | <20% | Q2 |\n| Activation | >80% | Q2 |\n| NPS | >50 | Q3 |\n\n# Stakeholders\n\n- **Owner**: Product Team (John Smith)\n- **Responsible**: Engineering, Design\n- **Accountable**: VP Product\n- **Consulted**: Customer Success\n- **Informed**: Sales, Marketing\n\n# Timeline\n\n## Phase 1: Discovery (Week 1-2)\n- User research\n- Competitive analysis\n\n## Phase 2: Design (Week 3-4)\n- Wireframes\n- User testing\n\n## Phase 3: Build (Week 5-8)\n- Development\n- QA testing\n\n## Phase 4: Launch (Week 9)\n- Staged rollout\n- Monitoring",
+    "content": "# Executive Summary\n\nThis proposal requests $150K to reduce customer churn by 50%, yielding $1M annual savings. ROI: 567%. Payback: 2 months.\n\n# Problem\n\nOur customers struggle with onboarding, leading to 40% churn in the first month. According to Gartner 2024, industry average is 15%. This costs the business $2 million annually in lost revenue (source: Q3 Finance Report). Before: 40% churn. After: 20% churn target.\n\n# Financial Justification\n\n## ROI Calculation\n- Annual benefit: $1M (50% of $2M churn cost)\n- Implementation cost: $150K\n- ROI: (1,000,000 - 150,000) / 150,000 × 100 = 567%\n\n## Payback Period\nWith monthly savings of $83K and upfront cost of $150K, payback is achieved in 2 months.\n\n## 3-Year TCO\n- Year 1: $150K implementation + $20K ops = $170K\n- Year 2: $20K ops\n- Year 3: $20K ops\n- Total: $210K vs $3M benefit = 14:1 return\n\n# Options Analysis\n\n## Option 1: Do Nothing\nContinue losing $2M annually. Risk: competitor gains 10% market share. Cost of inaction: $6M over 3 years.\n\n## Option 2: Minimal Investment ($50K)\nBasic improvements only. Expected 20% churn reduction. Phase 1 only.\n\n## Option 3: Full Solution ($150K) - RECOMMENDED\nComplete guided onboarding. Expected 50% churn reduction. Best ROI.\n\n**Recommendation**: Option 3 provides highest ROI with acceptable risk level.\n\n# Risks\n\n1. **User adoption risk** - Mitigation: A/B testing, gradual rollout\n2. **Technical integration risk** - Mitigation: Phased approach, fallback plan\n3. **Timeline risk** - Mitigation: Buffer weeks built in\n\n# Stakeholders\n\n- **Finance**: Approved budget, concerned about payback period (addressed: 2 months)\n- **HR**: Training requirements identified\n- **Legal**: No compliance concerns\n- **Owner**: Product Team (John Smith)\n- **Accountable**: VP Product\n\n# Timeline\n\n## Phase 1: Discovery (Week 1-2)\n- User research\n- Competitive analysis\n\n## Phase 2: Build (Week 3-8)\n- Development and QA\n\n## Phase 3: Launch (Week 9)\n- Staged rollout",
     "expectedMinScore": 70,
-    "expectedMaxScore": 100
+    "expectedMaxScore": 100,
+    "note": "Complete 4-pillar content: Strategic Evidence, Financial Justification, Options Analysis, Execution Completeness"
   },
   "problemOnly": {
-    "content": "# Problem\n\nCustomers are frustrated with our slow checkout process. The average checkout takes 5 minutes, compared to industry standard of 2 minutes. This results in 30% cart abandonment rate, costing us $500K monthly in lost sales.",
-    "expectedMinScore": 15,
-    "expectedMaxScore": 35
+    "content": "# Problem\n\nCustomers are frustrated with our slow checkout process. The average checkout takes 5 minutes, compared to industry standard of 2 minutes (source: Forrester 2024). This results in 30% cart abandonment rate, costing us $500K monthly in lost sales. Before: 5 min checkout. After: 2 min target.",
+    "expectedMinScore": 10,
+    "expectedMaxScore": 35,
+    "note": "Good strategic evidence, but missing financial, options, and execution pillars"
   },
   "noScope": {
     "content": "# Problem\n\nWe need to improve performance.\n\n# Solution\n\nWe will optimize the system.\n\n# Goals\n\n- Make it faster\n- Improve user experience",
-    "expectedMinScore": 10,
-    "expectedMaxScore": 40
+    "expectedMinScore": 0,
+    "expectedMaxScore": 25,
+    "note": "Weak evidence, no quantification, missing financial and options analysis"
   }
 }

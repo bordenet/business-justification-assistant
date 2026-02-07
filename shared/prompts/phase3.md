@@ -92,12 +92,27 @@ Create the final version:
 
 ### Step 4: Validate
 
-Run final checklist:
-- [ ] Zero vague terms remaining
-- [ ] All metrics have baseline/target/timeline
-- [ ] All requirements numbered and testable
-- [ ] Cross-references are consistent
-- [ ] No internal contradictions
+Run final checklist (4-pillar alignment):
+
+**Strategic Evidence (30 pts)**
+- [ ] Zero vague terms (improve/enhance without metrics)
+- [ ] All claims backed by quantified data (80/20 quant/qual)
+- [ ] Sources cited (industry benchmarks, internal data with dates)
+
+**Financial Justification (25 pts)**
+- [ ] ROI calculation with explicit formula and inputs
+- [ ] Payback period stated (target: <12 months)
+- [ ] 3-year TCO including hidden costs
+
+**Options & Alternatives (25 pts)**
+- [ ] At least 3 options analyzed (do-nothing, minimal, full)
+- [ ] Do-nothing scenario quantified with cost/risk
+- [ ] Clear recommendation with justification
+
+**Execution Completeness (20 pts)**
+- [ ] Executive summary readable in 30 seconds
+- [ ] All stakeholder concerns addressed (Finance, HR, Legal)
+- [ ] Risks identified with mitigation strategies
 
 ---
 
@@ -114,19 +129,26 @@ CRITICAL - Your final document must be COPY-PASTE READY:
 
 ### Required Sections (Synthesize Best from Both Versions)
 
+The document is scored on 4 pillars - ensure all sections contribute to these scores:
+- **Strategic Evidence (30 pts)**: Quantified problem, credible sources, before/after
+- **Financial Justification (25 pts)**: ROI formula, payback period, 3-year TCO
+- **Options & Alternatives (25 pts)**: 3 options, do-nothing quantified, recommendation
+- **Execution Completeness (20 pts)**: Exec summary, risks, stakeholder concerns
+
 | Section | Synthesis Guidance | Format |
 |---------|-------------------|--------|
 | # {Document Title} | Use clearer title from either version | H1 header |
-| ## 1. Executive Summary | Best of both - specific, quantified | Paragraph |
-| ## 2. Problem Statement | Most concrete version | With subsections |
-| ## 3. Goals and Objectives | Most measurable version | With subsections |
-| ## 4. Proposed Solution | Clearest description | Paragraph |
-| ## 5. Scope | Tightest boundaries | Three subsections |
-| ## 6. Requirements | Most testable version | Numbered FR/NFR |
-| ## 7. Stakeholders | Most complete version | Table |
-| ## 8. Timeline and Milestones | Most realistic version | Table or list |
-| ## 9. Risks and Mitigation | Most honest assessment | Table |
-| ## 10. Open Questions | Combined from both | Numbered list |
+| ## 1. Executive Summary | TL;DR: problem, solution, ROI, ask in 30 seconds | Paragraph |
+| ## 2. Problem Statement | Most quantified version with cost of inaction | With subsections |
+| ## 3. Options Analysis | Most thorough (do-nothing, minimal, full options) | Three options + recommendation |
+| ## 4. Financial Justification | Most explicit ROI, payback, TCO | With formula and table |
+| ## 5. Proposed Solution | Clearest description (the chosen option) | Paragraph |
+| ## 6. Scope | Tightest boundaries | Three subsections |
+| ## 7. Requirements | Most testable version | Numbered FR/NFR |
+| ## 8. Stakeholders | Most complete with Finance/HR/Legal concerns | Table + concerns |
+| ## 9. Timeline and Milestones | Most realistic version | Table or list |
+| ## 10. Risks and Mitigation | Most honest assessment with mitigation strategies | Table |
+| ## 11. Open Questions | Combined from both | Numbered list |
 
 ---
 

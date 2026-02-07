@@ -97,24 +97,30 @@ Create a well-structured {{DOCUMENT_TYPE}} with these sections:
 | Section | Content | Format |
 |---------|---------|--------|
 | # {Document Title} | Title of the document | H1 header |
-| ## 1. Executive Summary | 2-3 sentences: problem, solution, expected impact with metrics | Paragraph |
-| ## 2. Problem Statement | Current state and impact | Two subsections |
-| ### 2.1 Current State | What's happening today? Quantify the pain. | Paragraph |
-| ### 2.2 Impact | Who is affected? How many? What does it cost? | Paragraph |
-| ## 3. Goals and Objectives | Business goals, user goals, success metrics | Three subsections |
-| ### 3.1 Business Goals | High-level outcomes with success criteria | Bullet list |
-| ### 3.2 User Goals | What will users achieve? | Bullet list |
-| ### 3.3 Success Metrics | Metric, Baseline, Target, Timeline, Method | Table |
-| ## 4. Proposed Solution | High-level description - the "what", not the "how" | Paragraph |
-| ## 5. Scope | In scope, out of scope, future considerations | Three subsections |
-| ## 6. Requirements | Functional, non-functional, constraints | Three subsections |
-| ### 6.1 Functional Requirements | Numbered: FR1, FR2... | Numbered list |
-| ### 6.2 Non-Functional Requirements | Numbered: NFR1, NFR2... | Numbered list |
-| ### 6.3 Constraints | Limitations and boundaries | Bullet list |
-| ## 7. Stakeholders | Role, Impact, Needs, Success Criteria | Table |
-| ## 8. Timeline and Milestones | Key dates and deliverables | Table or list |
-| ## 9. Risks and Mitigation | Risk, likelihood, impact, mitigation | Table |
-| ## 10. Open Questions | Unresolved items | Numbered list |
+| ## 1. Executive Summary | TL;DR: problem, solution, ROI, ask - readable in 30 seconds | Paragraph |
+| ## 2. Problem Statement | Current state, impact, cost of inaction | Two subsections |
+| ### 2.1 Current State | What's happening today? Quantify the pain with metrics. | Paragraph |
+| ### 2.2 Cost of Inaction | What happens if we do nothing? Quantify the risk/cost. | Paragraph |
+| ## 3. Options Analysis | At least 3 alternatives with pros/cons | Three subsections |
+| ### 3.1 Option A: Do Nothing | Cost/risk of maintaining status quo | Paragraph |
+| ### 3.2 Option B: Minimal Investment | Lower-cost alternative with trade-offs | Paragraph |
+| ### 3.3 Option C: Full Investment | Recommended approach with full benefits | Paragraph |
+| ### 3.4 Recommendation | Which option and why (reference Options A-C) | Paragraph |
+| ## 4. Financial Justification | ROI, payback period, TCO | Three subsections |
+| ### 4.1 ROI Calculation | Explicit formula: (Benefit - Cost) / Cost × 100 | Formula + table |
+| ### 4.2 Payback Period | Time to recoup investment (target: <12 months) | Paragraph |
+| ### 4.3 Total Cost of Ownership | 3-year view: implementation, training, ops, opportunity cost | Table |
+| ## 5. Proposed Solution | The chosen path from Section 3 - high-level "what" not "how" | Paragraph |
+| ## 6. Scope | In scope, out of scope, future considerations | Three subsections |
+| ## 7. Requirements | Functional, non-functional, constraints | Three subsections |
+| ### 7.1 Functional Requirements | Numbered: FR1, FR2... | Numbered list |
+| ### 7.2 Non-Functional Requirements | Numbered: NFR1, NFR2... | Numbered list |
+| ### 7.3 Constraints | Limitations and boundaries | Bullet list |
+| ## 8. Stakeholders | Role, Impact, Needs, Success Criteria | Table |
+| ### 8.1 Stakeholder Concerns | Finance (ROI/payback), HR (equity/compliance), Legal (risk) | Subsections |
+| ## 9. Timeline and Milestones | Key dates and deliverables | Table or list |
+| ## 10. Risks and Mitigation | Risk, likelihood, impact, mitigation | Table |
+| ## 11. Open Questions | Unresolved items | Numbered list |
 
 ---
 
@@ -122,12 +128,25 @@ Create a well-structured {{DOCUMENT_TYPE}} with these sections:
 
 Before providing your response, verify:
 
+**Strategic Evidence (30 pts)**
 - [ ] Zero banned vague terms (improve, enhance, optimize without metrics)
-- [ ] Zero filler phrases (important to note, let's dive in)
-- [ ] Zero buzzwords (leverage, synergy, holistic, cutting-edge)
-- [ ] All metrics have baseline + target + timeline
-- [ ] All requirements are numbered and testable
-- [ ] Specific names used (APIs, tools, stakeholders)
+- [ ] All claims backed by quantified data (80/20 quant/qual ratio)
+- [ ] Sources cited (industry benchmarks, internal data with dates)
+
+**Financial Justification (25 pts)**
+- [ ] ROI calculation with explicit formula and inputs
+- [ ] Payback period stated (target: <12 months)
+- [ ] 3-year TCO including hidden costs
+
+**Options & Alternatives (25 pts)**
+- [ ] At least 3 options analyzed (do-nothing, minimal, full)
+- [ ] Do-nothing scenario quantified with cost/risk
+- [ ] Clear recommendation with justification
+
+**Execution Completeness (20 pts)**
+- [ ] Executive summary readable in 30 seconds
+- [ ] All stakeholder concerns addressed (Finance, HR, Legal)
+- [ ] Risks identified with mitigation strategies
 
 ---
 
