@@ -103,28 +103,30 @@ Run final checklist:
 
 ## Output Format
 
-```markdown
-# {Document Title}
+<output_rules>
+CRITICAL - Your final document must be COPY-PASTE READY:
+- Start IMMEDIATELY with "# {Document Title}" (no preamble like "Here's the synthesized document...")
+- End after the final section (no sign-off like "Let me know if...")
+- NO markdown code fences (```markdown) wrapping the output
+- NO explanations of what you did or why
+- The user will paste your ENTIRE response directly into the tool
+</output_rules>
 
-## 1. Executive Summary
-{Best of both versions - specific, quantified}
+### Required Sections (Synthesize Best from Both Versions)
 
-## 2. Problem Statement
-{Best of both versions}
-
-### 2.1 Current State
-### 2.2 Impact
-
-## 3. Goals and Objectives
-{Best of both versions}
-
-{... continue all sections ...}
-
----
-
-*This {{DOCUMENT_TYPE}} was generated using {{PROJECT_TITLE}}.*
-*Learn more at: {{GITHUB_PAGES_URL}}*
-```
+| Section | Synthesis Guidance | Format |
+|---------|-------------------|--------|
+| # {Document Title} | Use clearer title from either version | H1 header |
+| ## 1. Executive Summary | Best of both - specific, quantified | Paragraph |
+| ## 2. Problem Statement | Most concrete version | With subsections |
+| ## 3. Goals and Objectives | Most measurable version | With subsections |
+| ## 4. Proposed Solution | Clearest description | Paragraph |
+| ## 5. Scope | Tightest boundaries | Three subsections |
+| ## 6. Requirements | Most testable version | Numbered FR/NFR |
+| ## 7. Stakeholders | Most complete version | Table |
+| ## 8. Timeline and Milestones | Most realistic version | Table or list |
+| ## 9. Risks and Mitigation | Most honest assessment | Table |
+| ## 10. Open Questions | Combined from both | Numbered list |
 
 ---
 

@@ -92,50 +92,29 @@ Generate a comprehensive {{DOCUMENT_TYPE}} that is specific, measurable, and act
 
 ## Document Structure
 
-Create a well-structured {{DOCUMENT_TYPE}} with clear sections:
+Create a well-structured {{DOCUMENT_TYPE}} with these sections:
 
-```markdown
-# {Document Title}
-
-## 1. Executive Summary
-{2-3 sentences: problem, solution, expected impact with metrics}
-
-## 2. Problem Statement
-### 2.1 Current State
-{What's happening today? Quantify the pain.}
-### 2.2 Impact
-{Who is affected? How many? What does it cost?}
-
-## 3. Goals and Objectives
-### 3.1 Business Goals
-{High-level outcomes with success criteria}
-### 3.2 User Goals
-{What will users achieve?}
-### 3.3 Success Metrics
-{Metric | Baseline | Target | Timeline | Measurement Method}
-
-## 4. Proposed Solution
-{High-level description - the "what", not the "how"}
-
-## 5. Scope
-### 5.1 In Scope
-### 5.2 Out of Scope
-### 5.3 Future Considerations
-
-## 6. Requirements
-### 6.1 Functional Requirements (numbered: FR1, FR2...)
-### 6.2 Non-Functional Requirements (numbered: NFR1, NFR2...)
-### 6.3 Constraints
-
-## 7. Stakeholders
-{Role | Impact | Needs | Success Criteria}
-
-## 8. Timeline and Milestones
-
-## 9. Risks and Mitigation
-
-## 10. Open Questions
-```
+| Section | Content | Format |
+|---------|---------|--------|
+| # {Document Title} | Title of the document | H1 header |
+| ## 1. Executive Summary | 2-3 sentences: problem, solution, expected impact with metrics | Paragraph |
+| ## 2. Problem Statement | Current state and impact | Two subsections |
+| ### 2.1 Current State | What's happening today? Quantify the pain. | Paragraph |
+| ### 2.2 Impact | Who is affected? How many? What does it cost? | Paragraph |
+| ## 3. Goals and Objectives | Business goals, user goals, success metrics | Three subsections |
+| ### 3.1 Business Goals | High-level outcomes with success criteria | Bullet list |
+| ### 3.2 User Goals | What will users achieve? | Bullet list |
+| ### 3.3 Success Metrics | Metric, Baseline, Target, Timeline, Method | Table |
+| ## 4. Proposed Solution | High-level description - the "what", not the "how" | Paragraph |
+| ## 5. Scope | In scope, out of scope, future considerations | Three subsections |
+| ## 6. Requirements | Functional, non-functional, constraints | Three subsections |
+| ### 6.1 Functional Requirements | Numbered: FR1, FR2... | Numbered list |
+| ### 6.2 Non-Functional Requirements | Numbered: NFR1, NFR2... | Numbered list |
+| ### 6.3 Constraints | Limitations and boundaries | Bullet list |
+| ## 7. Stakeholders | Role, Impact, Needs, Success Criteria | Table |
+| ## 8. Timeline and Milestones | Key dates and deliverables | Table or list |
+| ## 9. Risks and Mitigation | Risk, likelihood, impact, mitigation | Table |
+| ## 10. Open Questions | Unresolved items | Numbered list |
 
 ---
 
@@ -155,5 +134,14 @@ Before providing your response, verify:
 ## Interactive Refinement
 
 If the context is incomplete, ask 3-5 clarifying questions FIRST. Wait for answers before generating the document.
+
+<output_rules>
+CRITICAL - Your final document must be COPY-PASTE READY:
+- Start IMMEDIATELY with "# {Document Title}" (no preamble like "Here's the document...")
+- End after the Open Questions section (no sign-off like "Let me know if...")
+- NO markdown code fences (```markdown) wrapping the output
+- NO explanations of what you did or why
+- The user will paste your ENTIRE response directly into the tool
+</output_rules>
 
 Generate the {{DOCUMENT_TYPE}} now based on the context provided.

@@ -103,33 +103,26 @@ You are NOT a copy editor. You bring a DIFFERENT perspective.
 
 ## Output Format
 
-```markdown
-## Review Assessment
+<output_rules>
+CRITICAL - Your review and improved document must be COPY-PASTE READY:
+- Start IMMEDIATELY with "## Review Assessment" (no preamble like "Here's my review...")
+- When providing improved version, start with "# {Document Title}" (no intro)
+- End after the document content (no sign-off like "Let me know if...")
+- NO markdown code fences (```markdown) wrapping the output
+- NO explanations of what you did or why
+- The user will paste your ENTIRE response directly into the tool
+</output_rules>
 
-### Scores
-| Criterion | Score | Notes |
-|-----------|-------|-------|
-| Problem Clarity | X/10 | ... |
-...
+### Review Assessment Structure
 
-### AI Slop Found
-1. Line X: "improve efficiency" → needs: "reduce from X to Y"
-2. Line Y: "leverage synergies" → replace with: "combine X and Y to achieve Z"
-...
-
-### Assumptions Challenged
-1. Phase 1 assumes X. Alternative: What if Y?
-...
-
-### Clarifying Questions
-1. ...
-
----
-
-## Improved Version
-
-[Only provide after questions answered]
-```
+| Section | Content | Format |
+|---------|---------|--------|
+| ## Review Assessment | Overall review header | H2 header |
+| ### Scores | Criterion, Score (X/10), Notes | Table |
+| ### AI Slop Found | Line X: "phrase" → needs: "replacement" | Numbered list |
+| ### Assumptions Challenged | Phase 1 assumes X. Alternative: What if Y? | Numbered list |
+| ### Clarifying Questions | Questions to resolve before improving | Numbered list |
+| ## Improved Version | Full improved document (only after Q&A) | Full markdown document |
 
 ---
 
