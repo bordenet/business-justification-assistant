@@ -23,6 +23,7 @@ import {
   getAttachmentStats
 } from './attachments.js';
 import { getAllTemplates, getTemplate } from './document-specific-templates.js';
+import { validateDocument, getScoreColor, getScoreLabel } from './validator-inline.js';
 
 // Re-export attachment functions for backwards compatibility
 export {
@@ -75,6 +76,22 @@ export async function renderProjectsList() {
                         project.phases[1]?.completed &&
                         project.phases[2]?.completed &&
                         project.phases[3]?.completed;
+
+    // Count COMPLETED phases (not current phase)
+    const completedPhases = project.phases
+      ? [1, 2, 3].filter(phase => project.phases[phase]?.completed).length
+      : 0;
+
+    // Calculate score for completed projects
+    let scoreData = null;
+    if (isComplete && project.phases?.[3]?.response) {
+      const validation = validateDocument(project.phases[3].response);
+      scoreData = {
+        score: validation.totalScore,
+        color: getScoreColor(validation.totalScore),
+        label: getScoreLabel(validation.totalScore)
+      };
+    }
     return `
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow cursor-pointer" data-project-id="${project.id}">
                         <div class="p-6">
@@ -105,22 +122,31 @@ export async function renderProjectsList() {
                                 ${escapeHtml(project.context ? project.context.substring(0, 100) + (project.context.length > 100 ? '...' : '') : '')}
                             </p>
 
-                            <div class="mb-4">
-                                <div class="flex items-center space-x-2 mb-2">
-                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Phase ${Math.min(project.phase, 3)}/3</span>
-                                    <div class="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-                                        <div class="bg-blue-600 h-2 rounded-full transition-all" style="width: ${Math.min((project.phase / 3) * 100, 100)}%"></div>
-                                    </div>
+                            ${scoreData ? `
+                            <!-- Completed: Show quality score -->
+                            <div class="mb-3">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">Quality Score</span>
+                                    <span class="text-xs font-medium text-${scoreData.color}-600 dark:text-${scoreData.color}-400">${scoreData.score}% · ${scoreData.label}</span>
                                 </div>
-                                <div class="flex space-x-1">
-                                    ${[1, 2, 3].map(phase => `
-                                        <div class="flex-1 h-1 rounded ${project.phases && project.phases[phase] && project.phases[phase].completed ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'}"></div>
-                                    `).join('')}
+                                <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
+                                    <div class="bg-${scoreData.color}-500 h-1.5 rounded-full" style="width: ${scoreData.score}%"></div>
                                 </div>
                             </div>
+                            ` : `
+                            <!-- In Progress: Show completed phases as segments -->
+                            <div class="flex items-center space-x-2 mb-3">
+                                <div class="flex space-x-1 flex-1">
+                                    ${[1, 2, 3].map(phase => `
+                                        <div class="flex-1 h-1.5 rounded ${project.phases && project.phases[phase]?.completed ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'}"></div>
+                                    `).join('')}
+                                </div>
+                                <span class="text-xs text-gray-500 dark:text-gray-400">${completedPhases}/3</span>
+                            </div>
+                            `}
 
-                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                                <span>Updated ${formatDate(project.updatedAt)}</span>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">
+                                Updated ${formatDate(project.updatedAt)}
                             </div>
                         </div>
                     </div>

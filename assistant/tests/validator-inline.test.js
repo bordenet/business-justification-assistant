@@ -1,7 +1,7 @@
 /**
  * Tests for validator-inline.js
  */
-import { validateDocument, getScoreColor, getScoreLabel } from '../js/validator-inline.js';
+import { validateDocument, getScoreColor, getScoreLabel } from '../../shared/js/validator-inline.js';
 
 describe('Inline One-Pager Validator', () => {
   describe('validateDocument', () => {
