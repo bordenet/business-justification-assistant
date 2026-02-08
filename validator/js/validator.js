@@ -37,7 +37,9 @@ const EVIDENCE_PATTERNS = {
 const FINANCIAL_PATTERNS = {
   financialSection: /^#+\s*(financial|roi|return|investment|cost|budget|tco|payback)/im,
   roiCalculation: /\b(roi|return.on.investment|benefit.?.cost|cost.?.benefit|net.present.value|npv)\b/gi,
-  roiFormula: /(\d+\s*[-−–]\s*\d+)\s*[\/÷]\s*\d+|roi\s*[=:]\s*\d+/gi,
+  // Improved ROI formula detection from adversarial review:
+  // Matches: (benefit - cost) / cost, ROI = 150%, $X/$Y, savings/investment
+  roiFormula: /(\d+\s*[-−–]\s*\d+)\s*[\/÷]\s*\d+|roi\s*[=:]\s*\d+|\(.*benefit.*[-−–].*cost.*\)\s*[\/÷]|savings\s*[\/÷]\s*investment|\$[\d,]+\s*[\/÷]\s*\$[\d,]+/gi,
   paybackPeriod: /\b(payback|break.?even|recoup|recover.+investment|months?.to.recover)\b/gi,
   paybackTime: /\b(\d+\s*(month|year|week)s?)\b/gi,
   tcoAnalysis: /\b(tco|total.cost.of.ownership|3.?year|three.?year|implementation.cost|training.cost|operational.cost|opportunity.cost|hidden.cost)\b/gi,
@@ -64,7 +66,8 @@ const EXECUTION_PATTERNS = {
   risksSection: /^#+\s*(risk|mitigation|contingency)/im,
   riskLanguage: /\b(risk|mitigation|contingency|fallback|if.+fails|worst.case)\b/gi,
   stakeholderSection: /^#+\s*(stakeholder|team|owner|raci|responsible)/im,
-  stakeholderConcerns: /\b(finance|hr|legal|compliance|equity|liability|approval|sign.?off)\b/gi,
+  // Extended stakeholder concerns from adversarial review - includes FP&A, People Team
+  stakeholderConcerns: /\b(finance|fp&a|fp.?&.?a|financial.planning|hr|people.?team|people.?ops|legal|compliance|equity|liability|approval|sign.?off|cfo|cto|ceo|vp|director)\b/gi,
   timelineSection: /^#+\s*(timeline|milestone|phase|schedule|roadmap)/im,
   scopeSection: /^#+\s*(scope|boundaries|in.scope|out.of.scope)/im
 };
