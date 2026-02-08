@@ -39,7 +39,8 @@ const FINANCIAL_PATTERNS = {
   roiCalculation: /\b(roi|return.on.investment|benefit.?.cost|cost.?.benefit|net.present.value|npv)\b/gi,
   // Improved ROI formula detection from adversarial review:
   // Matches: (benefit - cost) / cost, ROI = 150%, $X/$Y, savings/investment
-  roiFormula: /(\d+\s*[-−–]\s*\d+)\s*[\/÷]\s*\d+|roi\s*[=:]\s*\d+|\(.*benefit.*[-−–].*cost.*\)\s*[\/÷]|savings\s*[\/÷]\s*investment|\$[\d,]+\s*[\/÷]\s*\$[\d,]+/gi,
+  // Extended: Also matches variable names like (Total Savings - Implementation) / Implementation
+  roiFormula: /(\d+\s*[-−–]\s*\d+)\s*[\/÷]\s*\d+|roi\s*[=:]\s*\d+|\(.*benefit.*[-−–].*cost.*\)\s*[\/÷]|savings\s*[\/÷]\s*investment|\$[\d,]+\s*[\/÷]\s*\$[\d,]+|\([^)]+[-−–][^)]+\)\s*[\/÷]\s*\S+/gi,
   paybackPeriod: /\b(payback|break.?even|recoup|recover.+investment|months?.to.recover)\b/gi,
   paybackTime: /\b(\d+\s*(month|year|week)s?)\b/gi,
   tcoAnalysis: /\b(tco|total.cost.of.ownership|3.?year|three.?year|implementation.cost|training.cost|operational.cost|opportunity.cost|hidden.cost)\b/gi,
@@ -55,7 +56,9 @@ const OPTIONS_PATTERNS = {
   alternatives: /\b(alternative|option|approach|scenario|build.vs.buy|buy.vs.build|option.?[abc123]|path.?[abc123])\b/gi,
   recommendation: /\b(recommend|recommendation|proposed|chosen|selected|preferred|our.choice|we.propose)\b/gi,
   comparison: /\b(compare|comparison|versus|vs\.?|trade.?off|pros?.and.cons?|advantage|disadvantage)\b/gi,
-  minimalInvestment: /\b(minimal|minimum|low.?cost|basic|mvp|phase.?1|incremental)\b/gi
+  minimalInvestment: /\b(minimal|minimum|low.?cost|basic|mvp|phase.?1|incremental)\b/gi,
+  // Added from adversarial review: detect "Full Investment" and similar labels for Option C
+  fullInvestment: /\b(full.?investment|full.?option|strategic.?transformation|target.?state|recommended.?approach|option.?c|comprehensive|enterprise.?solution)\b/gi
 };
 
 // ============================================================================
@@ -202,6 +205,7 @@ export function detectOptionsAnalysis(text) {
   const recommendationMatches = text.match(OPTIONS_PATTERNS.recommendation) || [];
   const comparisonMatches = text.match(OPTIONS_PATTERNS.comparison) || [];
   const minimalMatches = text.match(OPTIONS_PATTERNS.minimalInvestment) || [];
+  const fullMatches = text.match(OPTIONS_PATTERNS.fullInvestment) || [];
 
   return {
     hasOptionsSection,
@@ -212,13 +216,15 @@ export function detectOptionsAnalysis(text) {
     hasRecommendation: recommendationMatches.length > 0,
     hasComparison: comparisonMatches.length > 0,
     hasMinimalOption: minimalMatches.length > 0,
+    hasFullOption: fullMatches.length > 0,
     indicators: [
       hasOptionsSection && 'Dedicated options section',
       doNothingMatches.length > 0 && 'Do-nothing scenario analyzed',
       alternativeMatches.length > 0 && `${alternativeMatches.length} alternatives considered`,
       recommendationMatches.length > 0 && 'Clear recommendation present',
       comparisonMatches.length > 0 && 'Comparison/trade-off analysis',
-      minimalMatches.length > 0 && 'Minimal investment option considered'
+      minimalMatches.length > 0 && 'Minimal investment option considered',
+      fullMatches.length > 0 && 'Full investment option considered'
     ].filter(Boolean)
   };
 }
@@ -584,12 +590,14 @@ export function scoreOptionsAnalysis(text) {
   }
 
   // Multiple alternatives considered (0-10 pts)
-  if (options.hasAlternatives && options.alternativeCount >= 3 && options.hasMinimalOption) {
+  // Accept either minimal or full investment option to award full points (from adversarial review)
+  const hasInvestmentOption = options.hasMinimalOption || options.hasFullOption;
+  if (options.hasAlternatives && options.alternativeCount >= 3 && hasInvestmentOption) {
     score += 10;
-    strengths.push(`${options.alternativeCount} alternatives analyzed including minimal option`);
+    strengths.push(`${options.alternativeCount} alternatives analyzed with investment options`);
   } else if (options.hasAlternatives && options.alternativeCount >= 2) {
     score += 6;
-    issues.push('Add minimal investment option as alternative');
+    issues.push('Add minimal or full investment option as alternative');
   } else if (options.hasAlternatives) {
     score += 3;
     issues.push('Only one alternative - add at least 3 options (do-nothing, minimal, full)');
