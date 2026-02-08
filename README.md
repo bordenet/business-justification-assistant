@@ -41,56 +41,16 @@ AI-powered assistant for creating persuasive business justifications—headcount
 
 ## Scoring Methodology
 
-The validator scores business justifications on a 100-point scale across four pillars. This scoring system is calibrated for persuasive technical documents where claims must be substantiated with quantitative evidence.
+The validator scores business justifications on a **100-point scale** across four pillars:
 
-### Scoring Taxonomy
+| Pillar | Points |
+|--------|--------|
+| Strategic Evidence | 30 |
+| Financial Justification | 25 |
+| Options & Alternatives | 25 |
+| Execution Completeness | 20 |
 
-| Pillar | Weight | Rationale |
-|--------|--------|-----------|
-| **Strategic Evidence** | 30 pts | Validates that claims are backed by data, not assertions |
-| **Financial Justification** | 25 pts | Ensures ROI, payback period, and TCO are explicit |
-| **Options & Alternatives** | 25 pts | Enforces the 3-option structure (do-nothing, minimal, full) |
-| **Execution Completeness** | 20 pts | Validates stakeholder concerns and risk mitigation |
-
-### Why These Weights?
-
-**Strategic Evidence (30 pts)** is the highest-weighted pillar because business justifications live or die on credibility. A justification with compelling narrative but weak data will be rejected by finance. The validator measures:
-- **Quantitative data** (12 pts): Numbers, percentages, metrics backing every claim (80/20 quant/qual ratio)
-- **Credible sources** (10 pts): Industry benchmarks (DORA, Radford, Gartner), internal data with dates/sample sizes
-- **Before/after comparisons** (8 pts): Baseline vs target metrics, counterfactual analysis
-
-**Financial Justification (25 pts)** addresses the reality that approvers think in financial terms. The validator requires:
-- **ROI calculation** (10 pts): Explicit formula: `(Benefit - Cost) / Cost × 100` with inputs
-- **Payback period** (8 pts): Time to recoup investment (target: <12 months)
-- **TCO analysis** (7 pts): 3-year view including hidden costs (implementation, training, ops, opportunity cost)
-
-**Options & Alternatives (25 pts)** enforces the standard business case structure. Presenting only one option signals advocacy, not analysis. The validator requires:
-- **Multiple options** (10 pts): At least 3 options: do-nothing, minimal investment, full investment
-- **Do-nothing scenario** (10 pts): Quantified cost/risk of inaction
-- **Clear recommendation** (5 pts): Which option and why, with trade-off comparison
-
-**Execution Completeness (20 pts)** ensures the justification addresses stakeholder concerns proactively:
-- **Executive summary** (6 pts): TL;DR lets a stranger understand the ask in 30 seconds
-- **Risks & mitigation** (7 pts): Key risks identified with mitigation strategies
-- **Stakeholder concerns** (7 pts): Finance (ROI/payback), HR (equity/compliance), Legal (risk/liability)
-
-### Adversarial Robustness
-
-The scoring system is designed to resist common manipulation strategies:
-
-| Gaming Attempt | Why It Fails |
-|----------------|--------------|
-| Citing "industry best practices" without sources | Credible sources require named benchmarks with dates |
-| Presenting ROI without showing calculation | ROI formula must be explicit with visible inputs |
-| Omitting the do-nothing option | 3-option structure is mandatory; missing options = 0 pts |
-| Burying risks in appendices | Risk section presence and quality are scored directly |
-| Using variable names in ROI formulas | Regex requires actual numbers or explicit `(Benefit - Cost)` format |
-
-### Calibration Notes
-
-The **3-option requirement** is the most distinctive feature. Research on decision-making shows that single-option proposals trigger skepticism ("What are you hiding?"). The do-nothing/minimal/full structure forces authors to articulate the cost of inaction and the marginal value of additional investment.
-
-The **ROI formula detection** uses pattern matching that requires explicit calculation format. This prevents authors from claiming "positive ROI" without showing their work. The validator accepts variable-based formulas (e.g., `(annual_savings - investment) / investment`) but penalizes missing formula entirely.
+The scoring is calibrated for persuasive technical documents where claims must be substantiated with quantitative evidence. For complete methodology details including detection patterns, adversarial robustness, and calibration notes, see **[docs/Scoring_Methods.md](./docs/Scoring_Methods.md)**.
 
 ---
 
