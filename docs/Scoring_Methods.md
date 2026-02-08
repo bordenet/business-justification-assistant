@@ -111,6 +111,99 @@ Extended patterns include FP&A, People Team, Legal, C-suite concerns. Missing th
 | 20-39 | D | Weak - reframe around business outcomes |
 | 0-19 | F | Not a justification - restart with data |
 
+## LLM Scoring
+
+The validator uses a **dual-scoring architecture**: JavaScript pattern matching provides fast, deterministic scoring, while LLM evaluation adds semantic understanding. Both systems use aligned rubrics but may diverge on edge cases.
+
+### Three LLM Prompts
+
+| Prompt | Purpose | When Used |
+|--------|---------|-----------|
+| **Scoring Prompt** | Evaluate justification against rubric, return dimension scores | Initial validation |
+| **Critique Prompt** | Generate clarifying questions to improve weak areas | After scoring |
+| **Rewrite Prompt** | Produce improved justification targeting 85+ score | User-requested rewrite |
+
+### LLM Scoring Rubric
+
+The LLM uses the same 4-pillar taxonomy as JavaScript, with identical point allocations:
+
+| Dimension | Points | LLM Focus |
+|-----------|--------|-----------|
+| Strategic Evidence | 30 | Quantitative data (80/20 quant/qual), credible sources (DORA, Gartner), before/after comparisons |
+| Financial Justification | 25 | Explicit ROI formula with inputs, payback period (<12 months target), 3-year TCO analysis |
+| Options & Alternatives | 25 | At least 3 options (do-nothing, minimal, full), quantified do-nothing cost, clear recommendation |
+| Execution Completeness | 20 | TL;DR lets stranger understand in 30 seconds, risks with mitigation, stakeholder concerns addressed |
+
+### LLM Calibration Guidance
+
+The LLM prompt includes explicit calibration signals:
+
+**Reward signals:**
+- Specific ROI calculations with explicit formulas and inputs
+- Explicit risk identification and mitigation strategies
+- Multiple stakeholder perspective consideration (Finance, HR, Legal)
+- Payback period with specific timeframe
+
+**Penalty signals:**
+- Every claim without quantified evidence
+- Vague sourcing: "industry standard", "best practice"
+- Missing options analysis or do-nothing scenario
+- Sunk cost reasoning: "we've already invested X"
+
+**Calibration baseline:** "Be HARSH. Most business justifications score 40-60. Only exceptional ones score 80+."
+
+### LLM Critique Prompt
+
+The critique prompt receives the current JS validation scores and generates improvement questions:
+
+```
+Score Summary: [totalScore]/100
+- Strategic Evidence: [X]/30
+- Financial Justification: [X]/25
+- Options & Alternatives: [X]/25
+- Execution Completeness: [X]/20
+```
+
+Output includes:
+- Top 3 issues (specific gaps)
+- 3-5 clarifying questions focused on weakest dimensions
+- Quick wins (fixes that don't require user input)
+- Focus areas: ROI calculation, alternatives analysis, stakeholder concerns
+
+### LLM Rewrite Prompt
+
+The rewrite prompt targets an 85+ score with specific requirements:
+- Concise (2-3 pages max, executive-focused)
+- TL;DR/Executive Summary that lets a stranger approve in 30 seconds
+- Quantified evidence for EVERY claim (80/20 quant/qual split)
+- Credible sources (industry benchmarks, internal data with dates/sample sizes)
+- Explicit ROI calculation with formula, inputs, and result
+- Payback period and 3-year TCO analysis
+- At least 3 options: do-nothing, minimal investment, full investment
+- Explicit do-nothing scenario with sensitivity analysis
+- Addressed stakeholder concerns: Finance (ROI), HR (equity), Legal (risk)
+- Identified key risks with mitigation strategies
+- No sunk cost reasoning, vague sourcing, or unsubstantiated claims
+
+### JS vs LLM Score Divergence
+
+| Scenario | JS Score | LLM Score | Explanation |
+|----------|----------|-----------|-------------|
+| ROI mentioned without formula | May score partial | Lower | LLM requires explicit calculation |
+| Generic "alternatives considered" | May pass patterns | Lower | LLM evaluates option depth |
+| "Minimal risk" statements | May pass | Lower | LLM requires mitigation strategies |
+| Industry sources without specifics | May pass | Lower | LLM penalizes "best practice" vagueness |
+
+### LLM-Specific Adversarial Notes
+
+| Gaming Attempt | Why LLM Catches It |
+|----------------|-------------------|
+| Vague "significant savings" | LLM requires actual dollar amounts |
+| ROI without formula breakdown | LLM demands: (Benefit - Cost) / Cost × 100 |
+| Generic "alternatives considered" | LLM requires distinct options with trade-offs |
+| "Minimal risk" claims | LLM requires named risks with mitigation |
+| Missing FP&A perspective | LLM checks for Finance stakeholder concerns |
+
 ## Related Files
 
 - `validator/js/validator.js` - Implementation of scoring functions
