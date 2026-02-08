@@ -100,7 +100,7 @@ export function generateCritiquePrompt(justificationContent, currentResult) {
     ...(currentResult.executionCompleteness?.issues || currentResult.completeness?.issues || [])
   ].slice(0, 5).map(i => `- ${i}`).join('\n');
 
-  return `You are a senior Finance/HR Business Partner providing detailed feedback on a Business Justification.
+  return `You are a senior Finance/HR Business Partner helping improve a Business Justification.
 
 ## CURRENT VALIDATION RESULTS
 Total Score: ${currentResult.totalScore}/100
@@ -120,16 +120,39 @@ ${justificationContent}
 
 ## YOUR TASK
 
-Provide:
-1. **Executive Summary** (2-3 sentences on overall business justification quality)
-2. **Detailed Critique** by the 4 pillars:
-   - Strategic Evidence: What works, what needs improvement
-   - Financial Justification: ROI, payback, TCO analysis
-   - Options & Alternatives: Do-nothing, alternatives, recommendation
-   - Execution Completeness: Summary, risks, stakeholder concerns
-3. **Revised Business Justification** - A complete rewrite addressing all issues
+Help the author improve this Business Justification by asking clarifying questions.
 
-Be specific. Show exact rewrites. Keep it concise (2-3 pages max). Make it ready for executive approval.`;
+## REQUIRED OUTPUT FORMAT
+
+**Score Summary:** ${currentResult.totalScore}/100
+
+**Top 3 Issues:**
+1. [Most critical gap - be specific]
+2. [Second most critical gap]
+3. [Third most critical gap]
+
+**Questions to Improve Your Business Justification:**
+1. **[Question about missing/weak area]**
+   _Why this matters:_ [How answering this improves the score]
+
+2. **[Question about another gap]**
+   _Why this matters:_ [Score impact]
+
+3. **[Question about ROI/options/risks]**
+   _Why this matters:_ [Score impact]
+
+(Provide 3-5 questions total, focused on the weakest dimensions)
+
+**Quick Wins (fix these now):**
+- [Specific fix that doesn't require user input]
+- [Another immediate improvement]
+
+<output_rules>
+- Start directly with "**Score Summary:**" (no preamble)
+- Do NOT include a revised Business Justification
+- Only provide questions and quick wins
+- Focus questions on: ROI calculation, alternatives analysis, stakeholder concerns
+</output_rules>`;
 }
 
 /**
