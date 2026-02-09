@@ -700,17 +700,25 @@ export function scoreCompleteness(text) {
  */
 export function validateOnePager(text) {
   if (!text || typeof text !== 'string') {
+    const emptyStrategic = { score: 0, maxScore: 30, issues: ['No content to validate'], strengths: [] };
+    const emptyFinancial = { score: 0, maxScore: 25, issues: ['No content to validate'], strengths: [] };
+    const emptyOptions = { score: 0, maxScore: 25, issues: ['No content to validate'], strengths: [] };
+    const emptyExecution = { score: 0, maxScore: 20, issues: ['No content to validate'], strengths: [] };
     return {
       totalScore: 0,
-      strategicEvidence: { score: 0, maxScore: 30, issues: ['No content to validate'], strengths: [] },
-      financialJustification: { score: 0, maxScore: 25, issues: ['No content to validate'], strengths: [] },
-      optionsAnalysis: { score: 0, maxScore: 25, issues: ['No content to validate'], strengths: [] },
-      executionCompleteness: { score: 0, maxScore: 20, issues: ['No content to validate'], strengths: [] },
+      strategicEvidence: emptyStrategic,
+      financialJustification: emptyFinancial,
+      optionsAnalysis: emptyOptions,
+      executionCompleteness: emptyExecution,
       // Legacy property names for backward compatibility
-      problemClarity: { score: 0, maxScore: 30, issues: ['No content to validate'], strengths: [] },
-      solution: { score: 0, maxScore: 25, issues: ['No content to validate'], strengths: [] },
-      scope: { score: 0, maxScore: 25, issues: ['No content to validate'], strengths: [] },
-      completeness: { score: 0, maxScore: 20, issues: ['No content to validate'], strengths: [] }
+      problemClarity: emptyStrategic,
+      solution: emptyFinancial,
+      scope: emptyOptions,
+      completeness: emptyExecution,
+      // Aliases for project-view.js compatibility (expects structure, clarity, businessValue)
+      structure: emptyStrategic,
+      clarity: emptyFinancial,
+      businessValue: emptyOptions
     };
   }
 
@@ -750,6 +758,10 @@ export function validateOnePager(text) {
     solution: financialJustification,
     scope: optionsAnalysis,
     completeness: executionCompleteness,
+    // Aliases for project-view.js compatibility (expects structure, clarity, businessValue)
+    structure: strategicEvidence,
+    clarity: financialJustification,
+    businessValue: optionsAnalysis,
     // Dimension mappings for app.js compatibility
     dimension1: strategicEvidence,
     dimension2: financialJustification,
