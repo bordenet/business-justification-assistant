@@ -23,7 +23,7 @@ export { calculateSlopScore };
 // PILLAR 1: Strategic Evidence Patterns (30 pts)
 // ============================================================================
 const EVIDENCE_PATTERNS = {
-  problemSection: /^#+\s*(problem|challenge|pain.?point|context|why|current.?state)/im,
+  problemSection: /^(#+\s*)?(problem|challenge|pain.?point|context|why|current.?state)/im,
   problemLanguage: /\b(problem|challenge|pain.?point|issue|struggle|difficult|frustrat|current.?state|today|existing)\b/gi,
   quantified: /\d+\s*(%|million|thousand|hour|day|week|month|year|\$|dollar|user|customer|transaction|k\b|m\b)/gi,
   businessFocus: /\b(business|customer|user|market|revenue|profit|competitive|strategic|value)\b/gi,
@@ -35,7 +35,7 @@ const EVIDENCE_PATTERNS = {
 // PILLAR 2: Financial Justification Patterns (25 pts)
 // ============================================================================
 const FINANCIAL_PATTERNS = {
-  financialSection: /^#+\s*(financial|roi|return|investment|cost|budget|tco|payback)/im,
+  financialSection: /^(#+\s*)?(financial|roi|return|investment|cost|budget|tco|payback)/im,
   roiCalculation: /\b(roi|return.on.investment|benefit.?.cost|cost.?.benefit|net.present.value|npv)\b/gi,
   // Improved ROI formula detection from adversarial review:
   // Matches: (benefit - cost) / cost, ROI = 150%, $X/$Y, savings/investment
@@ -51,7 +51,7 @@ const FINANCIAL_PATTERNS = {
 // PILLAR 3: Options & Alternatives Patterns (25 pts)
 // ============================================================================
 const OPTIONS_PATTERNS = {
-  optionsSection: /^#+\s*(option|alternative|approach|scenario|comparison)/im,
+  optionsSection: /^(#+\s*)?(option|alternative|approach|scenario|comparison)/im,
   doNothing: /\b(do.?nothing|status.?quo|no.?action|inaction|if.we.don't|without.this|current.path|option.?a)\b/gi,
   alternatives: /\b(alternative|option|approach|scenario|build.vs.buy|buy.vs.build|option.?[abc123]|path.?[abc123])\b/gi,
   recommendation: /\b(recommend|recommendation|proposed|chosen|selected|preferred|our.choice|we.propose)\b/gi,
@@ -65,26 +65,26 @@ const OPTIONS_PATTERNS = {
 // PILLAR 4: Execution Completeness Patterns (20 pts)
 // ============================================================================
 const EXECUTION_PATTERNS = {
-  executiveSummary: /^#+\s*(executive.?summary|summary|tl;?dr|overview)/im,
-  risksSection: /^#+\s*(risk|mitigation|contingency)/im,
+  executiveSummary: /^(#+\s*)?(executive.?summary|summary|tl;?dr|overview)/im,
+  risksSection: /^(#+\s*)?(risk|mitigation|contingency)/im,
   riskLanguage: /\b(risk|mitigation|contingency|fallback|if.+fails|worst.case)\b/gi,
-  stakeholderSection: /^#+\s*(stakeholder|team|owner|raci|responsible)/im,
+  stakeholderSection: /^(#+\s*)?(stakeholder|team|owner|raci|responsible)/im,
   // Extended stakeholder concerns from adversarial review - includes FP&A, People Team
   stakeholderConcerns: /\b(finance|fp&a|fp.?&.?a|financial.planning|hr|people.?team|people.?ops|legal|compliance|equity|liability|approval|sign.?off|cfo|cto|ceo|vp|director)\b/gi,
-  timelineSection: /^#+\s*(timeline|milestone|phase|schedule|roadmap)/im,
-  scopeSection: /^#+\s*(scope|boundaries|in.scope|out.of.scope)/im
+  timelineSection: /^(#+\s*)?(timeline|milestone|phase|schedule|roadmap)/im,
+  scopeSection: /^(#+\s*)?(scope|boundaries|in.scope|out.of.scope)/im
 };
 
 // Legacy patterns for backward compatibility
 const REQUIRED_SECTIONS = [
-  { pattern: /^#+\s*(problem|challenge|pain.?point|context)/im, name: 'Problem/Challenge', weight: 2 },
-  { pattern: /^#+\s*(option|alternative|scenario)/im, name: 'Options Analysis', weight: 2 },
-  { pattern: /^#+\s*(financial|roi|tco|payback)/im, name: 'Financial Justification', weight: 2 },
-  { pattern: /^#+\s*(solution|proposal|approach|recommendation)/im, name: 'Solution/Proposal', weight: 2 },
-  { pattern: /^#+\s*(scope|in.scope|out.of.scope)/im, name: 'Scope Definition', weight: 1 },
-  { pattern: /^#+\s*(stakeholder|team|owner)/im, name: 'Stakeholders/Team', weight: 1 },
-  { pattern: /^#+\s*(risk|mitigation)/im, name: 'Risks/Mitigation', weight: 1 },
-  { pattern: /^#+\s*(timeline|milestone|phase)/im, name: 'Timeline/Milestones', weight: 1 }
+  { pattern: /^(#+\s*)?(problem|challenge|pain.?point|context)/im, name: 'Problem/Challenge', weight: 2 },
+  { pattern: /^(#+\s*)?(option|alternative|scenario)/im, name: 'Options Analysis', weight: 2 },
+  { pattern: /^(#+\s*)?(financial|roi|tco|payback)/im, name: 'Financial Justification', weight: 2 },
+  { pattern: /^(#+\s*)?(solution|proposal|approach|recommendation)/im, name: 'Solution/Proposal', weight: 2 },
+  { pattern: /^(#+\s*)?(scope|in.scope|out.of.scope)/im, name: 'Scope Definition', weight: 1 },
+  { pattern: /^(#+\s*)?(stakeholder|team|owner)/im, name: 'Stakeholders/Team', weight: 1 },
+  { pattern: /^(#+\s*)?(risk|mitigation)/im, name: 'Risks/Mitigation', weight: 1 },
+  { pattern: /^(#+\s*)?(timeline|milestone|phase)/im, name: 'Timeline/Milestones', weight: 1 }
 ];
 
 // Legacy pattern aliases for backward compatibility
@@ -109,12 +109,12 @@ const SCOPE_PATTERNS = {
 const METRICS_PATTERNS = {
   smart: /\b(specific|measurable|achievable|relevant|time.bound|smart)\b/gi,
   quantified: EVIDENCE_PATTERNS.quantified,
-  metricsSection: /^#+\s*(success|metric|kpi|measure|success.metric)/im,
+  metricsSection: /^(#+\s*)?(success|metric|kpi|measure|success.metric)/im,
   metricsLanguage: /\b(metric|kpi|measure|target|goal|achieve|reach|improve|reduce|increase)\b/gi
 };
 
 const SOLUTION_PATTERNS = {
-  solutionSection: /^#+\s*(solution|proposal|approach|recommendation|how)/im,
+  solutionSection: /^(#+\s*)?(solution|proposal|approach|recommendation|how)/im,
   solutionLanguage: /\b(solution|approach|proposal|implement|build|create|develop|enable|provide|deliver)\b/gi,
   measurable: /\b(measure|metric|kpi|track|monitor|quantify|achieve|reach|target|goal)\b/gi,
   highlevel: /\b(overview|summary|high.?level|architecture|design|flow|process|workflow)\b/gi,
@@ -273,7 +273,7 @@ export function detectProblemStatement(text) {
 export function detectCostOfInaction(text) {
   const costMatches = text.match(OPTIONS_PATTERNS.doNothing) || [];
   const quantifiedMatches = text.match(EVIDENCE_PATTERNS.quantified) || [];
-  const hasCostSection = /^#+\s*(cost|impact|consequence|risk|why.now|urgency|inaction)/im.test(text);
+  const hasCostSection = /^(#+\s*)?(cost|impact|consequence|risk|why.now|urgency|inaction)/im.test(text);
 
   return {
     hasCostLanguage: costMatches.length > 0,
@@ -290,7 +290,7 @@ export function detectCostOfInaction(text) {
 }
 
 export function detectSolution(text) {
-  const hasSolutionSection = /^#+\s*(solution|proposal|approach|recommendation|how)/im.test(text);
+  const hasSolutionSection = /^(#+\s*)?(solution|proposal|approach|recommendation|how)/im.test(text);
   const solutionMatches = text.match(/\b(solution|approach|proposal|implement|build|create|develop|enable|provide|deliver)\b/gi) || [];
   const measurableMatches = text.match(/\b(measure|metric|kpi|track|monitor|quantify|achieve|reach|target|goal)\b/gi) || [];
   const highlevelMatches = text.match(/\b(overview|summary|high.?level|architecture|design|flow|process|workflow)\b/gi) || [];
