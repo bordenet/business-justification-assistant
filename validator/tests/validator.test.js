@@ -315,6 +315,61 @@ describe('detectSections', () => {
   });
 });
 
+describe('detectSections - Plain Text Heading Detection', () => {
+  // Tests for ^(#+\s*)? regex pattern that allows plain text headings (Word/Google Docs imports)
+
+  test('detects Problem section without markdown prefix', () => {
+    const text = 'Problem\nWe have a challenge with X.';
+    const result = detectSections(text);
+    expect(result.found.some((s) => s.name === 'Problem/Challenge')).toBe(true);
+  });
+
+  test('detects Solution section without markdown prefix', () => {
+    const text = 'Solution\nOur approach is to build Y.';
+    const result = detectSections(text);
+    expect(result.found.some((s) => s.name === 'Solution/Proposal')).toBe(true);
+  });
+
+  test('detects Financial section without markdown prefix', () => {
+    const text = 'Financial Justification\n- ROI: 150%\n- Payback: 6 months';
+    const result = detectSections(text);
+    expect(result.found.some((s) => s.name === 'Financial Justification')).toBe(true);
+  });
+
+  test('detects Options section without markdown prefix', () => {
+    const text = 'Options Analysis\nOption A: Build. Option B: Buy.';
+    const result = detectSections(text);
+    expect(result.found.some((s) => s.name === 'Options Analysis')).toBe(true);
+  });
+
+  test('handles mixed markdown and plain text headings', () => {
+    const text = '# Problem\nSome issue.\n\nSolution\nThe fix is this.';
+    const result = detectSections(text);
+    expect(result.found.some((s) => s.name === 'Problem/Challenge')).toBe(true);
+    expect(result.found.some((s) => s.name === 'Solution/Proposal')).toBe(true);
+  });
+
+  test('handles Word/Google Docs pasted content without markdown', () => {
+    const text = `Problem
+Our customers face challenges with X.
+
+Solution
+We propose building Y.
+
+Financial Justification
+- ROI: 150%
+- Payback: 6 months
+
+Options Analysis
+Option A: Build. Option B: Buy.`;
+    const result = detectSections(text);
+    expect(result.found.some((s) => s.name === 'Problem/Challenge')).toBe(true);
+    expect(result.found.some((s) => s.name === 'Solution/Proposal')).toBe(true);
+    expect(result.found.some((s) => s.name === 'Financial Justification')).toBe(true);
+    expect(result.found.some((s) => s.name === 'Options Analysis')).toBe(true);
+  });
+});
+
 describe('detectStakeholders', () => {
   test('detects stakeholder section', () => {
     const result = detectStakeholders('# Stakeholders\nOwner: Product Team.');
