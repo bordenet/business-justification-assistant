@@ -1,5 +1,7 @@
 # Business Justification Assistant
 
+> ⚠️ **Deprecation Notice**: This repository is deprecated in favor of [DocForge AI](https://github.com/bordenet/docforge-ai), which consolidates all genesis-derived assistants into a single project. This repo will be archived on **March 1, 2026**.
+
 AI-powered assistant for creating persuasive business justifications—headcount requests, promotion cases, budget/opex requests, role reclassifications, and options comparisons.
 
 [![Star this repo](https://img.shields.io/github/stars/bordenet/business-justification-assistant?style=social)](https://github.com/bordenet/business-justification-assistant)
