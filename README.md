@@ -1,12 +1,14 @@
 # Business Justification Assistant
 
-> ⚠️ **Deprecation Notice**: This repository is deprecated in favor of [DocForge AI](https://github.com/bordenet/docforge-ai), which consolidates all genesis-derived assistants into a single project. This repo will be archived on **March 1, 2026**.
+> 🗄️ **ARCHIVED**: This repository has been archived. All pages now **redirect to [DocForge AI](https://bordenet.github.io/docforge-ai/)**, which consolidates all genesis-derived assistants into a single unified platform.
+>
+> **New location**: https://bordenet.github.io/docforge-ai/
 
 AI-powered assistant for creating persuasive business justifications—headcount requests, promotion cases, budget/opex requests, role reclassifications, and options comparisons.
 
 [![Star this repo](https://img.shields.io/github/stars/bordenet/business-justification-assistant?style=social)](https://github.com/bordenet/business-justification-assistant)
 
-**Try it**: [Assistant](https://bordenet.github.io/business-justification-assistant/) · [Validator](https://bordenet.github.io/business-justification-assistant/validator/)
+**⚠️ Redirects to DocForge AI**: [Assistant](https://bordenet.github.io/business-justification-assistant/) · [Validator](https://bordenet.github.io/business-justification-assistant/validator/)
 
 [![CI](https://github.com/bordenet/business-justification-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/bordenet/business-justification-assistant/actions)
 [![codecov](https://codecov.io/gh/bordenet/business-justification-assistant/branch/main/graph/badge.svg)](https://codecov.io/gh/bordenet/business-justification-assistant)
